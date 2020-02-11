@@ -20,6 +20,10 @@ print("Number of arguments: ", len(sys.argv))
 print("The arguments are: ", sys.argv)
 # The arguments are: ['03_modules.py']
 
+# for loop if there was more then one script running
+for arg in (sys.argv):
+    print("for loop result: ", arg)
+
 
 # Print out the OS platform you're using:
 # YOUR CODE HERE
@@ -27,15 +31,20 @@ print("I am using the following OS platform: ", sys.platform)
 
 # Print out the version of Python you're using:
 # YOUR CODE HERE
-print("this is the version of python i'm using: ", sys.version_info[0])
+print("this is the version of python i'm using: ", sys.version)
 
 # See the docs for the OS module: https://docs.python.org/3.7/library/os.html
 
 # Print the current process ID
 # YOUR CODE HERE
+print("this is the current process ID: ", os.getpid())
+# PID uniquely identify an active process being run on a kernal OS
 
 # Print the current working directory (cwd):
 # YOUR CODE HERE
+print("this is the current working directory: ", os.getcwd())
 
 # Print out your machine's login name
 # YOUR CODE HERE
+print("machines's login name: ", os.getlogin())
+# machines's login name: root
