@@ -58,3 +58,16 @@ def centered_avg_optimized(ints):
 
 # computational efficient since we're doing this in one pass ^^ its 5
 # and without mutating our original values
+
+
+# Pass by Reference Vs Pass by Value
+
+def mult_2(n):
+    n *= 2
+    return n
+
+
+# passing by value if its anything except a list or dictionary, where your passing by reference
+# n = 5
+# mult_2(n)
+# print(n)
