@@ -1,5 +1,26 @@
 import random
 
+
+def process_choices(player_move, cpu_move):
+    '''
+    Assume that both moves are r, p or s
+    '''
+    if player_move == cpu_move:
+        # tie
+        print("Tie")
+        return 0
+    elif player_move == "r" and cpu_move == "s" or \
+            player_move == "p" and cpu_move == "r" or \
+            player_move == "s" and cpu_move == "p":
+        # win
+        print("Win!")
+        return 1
+    else:
+        # lose
+        print("You did not win")
+        return -1
+
+
 # REPL
 wins = 0
 losses = 0
@@ -14,41 +35,16 @@ while True:
     cpu_move = random.choice(choices)
     print(f"CPU picks {cpu_move}")
     # EVAL
-    if cmd == "r":
-      # Do rock
-        if cpu_move == "r":
-            print("You Tie")
+    if cmd in choices:  # checking if we have a valid input
+        results = process_choices(cmd, cpu_move)  # calling function
+        if results == 0:
             ties += 1
-        elif cpu_move == "p":
-            print("You Lose")
-            losses += 1
-        elif cpu_move == "s":
-            print("You Win!")
+        elif results == 1:
             wins += 1
-    elif cmd == "p":
-      # Do paper
-        if cpu_move == "r":
-            print("You Win!")
-            wins += 1
-        elif cpu_move == "p":
-            print("You Tie")
-            ties += 1
-        elif cpu_move == "s":
-            print("You Lose")
+        else:
             losses += 1
-    elif cmd == "s":
-      # Do scissors
-        if cpu_move == "r":
-            print("You Lose")
-            losses += 1
-        elif cpu_move == "p":
-            print("You Win!")
-            wins += 1
-        elif cpu_move == "s":
-            print("You Tie")
-            ties += 1
     elif cmd == "q":
-      # Quit
+        # Quit
         print("Goodbye!")
         break
     else:
