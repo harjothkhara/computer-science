@@ -37,7 +37,7 @@ print("Distance is: {:.2f}".format(dist(a, b)))
 
 # YOUR CODE HERE
 def print_tuple(values):
-    print(*values, sep='\n')
+    print(*values, sep='\n')  # '*' unpacks the argument out of the tuple
 
 
 t = (1, 2, 5, 7, 99)
