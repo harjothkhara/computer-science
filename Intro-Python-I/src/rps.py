@@ -5,11 +5,13 @@ def process_choices(player_move, cpu_move):
     '''
     Assume that both moves are r, p or s
     '''
+    # This contains all winning pairs
     wins = {"r": "s", "p": "r", "s": "p"}  # dictionary
     if player_move == cpu_move:
         # tie
         print("Tie")
         return 0
+        # If we match a winning pair, user win
     elif wins[player_move] == cpu_move:
         # value of key
         # win
