@@ -19,6 +19,11 @@ print('y is %s' % y)
 print('z is %s' % z)
 
 # Use the 'format' string method to print the same thing
+print('x is {}'.format(x))
 
+print('y is {}'.format(y))
 
 # Finally, print the same thing using an f-string
+print(f"x is", x)
+print(f"y is {y}")
+print(f"z is {z!r}")
