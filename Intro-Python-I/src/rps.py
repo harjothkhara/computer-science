@@ -33,7 +33,7 @@ choices = ["r", "p", "s"]
 # LOOP
 while True:
     # READ
-    cmd = input("-> ")
+    cmd = input("(type r/p/s)\n ~~~~> ")
     cpu_move = random.choice(choices)
     print(f"CPU picks {cpu_move}")
     # EVAL
