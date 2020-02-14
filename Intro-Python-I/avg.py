@@ -71,3 +71,17 @@ def mult_2(n):
 # n = 5
 # mult_2(n)
 # print(n)
+
+def centered_average(nums):
+    min_num = nums[0]
+    max_num = nums[0]
+    sum = 0
+    length = 0
+    for n in nums:
+        sum += n
+        length += 1
+        if n < min_num:
+            min_num = n
+        if n > max_num:
+            max_num = n
+    return (sum - min_num - max_num) / (length - 2)
