@@ -22,7 +22,7 @@ month_calendar = c.formatmonth(datetime.now().year, datetime.now().month)
 
 # print(calendar.day_name[1])  # Tuesday
 
-# SIMPLIFYING
+# Semi-Optimized
 now = datetime.now()  # current local date and time e.g 2020-02-16 18:02:32.536320
 
 # calendar.month(theyear, themonth, w=0, l=0)
@@ -34,9 +34,35 @@ if len(sys.argv[1:]) == 0:
     print(calendar.month(now.year, now.month))
 # if the user gives 1 argument, assume month was passed in
 elif len(sys.argv[1:]) == 1:
+    # need to typecast to int otherwise returns a list of strings
     print(calendar.month(now.year, int(sys.argv[1])))
 # if the user gives 2 arguments, assume month and year were passed in
 elif len(sys.argv[1:]) == 2:
     print(calendar.month(int(sys.argv[2]), int(sys.argv[1])))
 else:
     print('\n Arguments need to be given as:\n   $ 14_cal.py month [year]\n')
+
+
+# Optimized
+
+# read our arguments
+args = sys.argv[1:]
+
+year = datetime.now().year
+month = datetime.now().month
+
+if len(args) == 0:
+    # if user doesn't give an input
+    pass
+# if the user gives 1 argument, assume month was passed in
+elif len(args) == 1:
+    month = int(args[0])
+# if the user gives 2 arguments, assume month and year were passed in
+elif len(args) == 2:
+    year = int(args[1])
+    month = int(args[0])
+else:
+    print('\n Arguments need to be given as:\n   $ 14_cal.py month [year]\n')
+    exit()
+
+print(calendar.month(year, month))
