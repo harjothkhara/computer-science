@@ -38,12 +38,12 @@ class Dog(Animal):
         print(f"{self.name} walks")
 
 
-#  new object instance
+#  new instance (object)
 d = Dog('rover', 15, "black")
 d.move()  # rover walks
 d.speak()  # woof
 
-# another object instance
+# another instance (object)
 d2 = Dog('king', 35, "spotted")
 d2.move()
 d2.speak()
