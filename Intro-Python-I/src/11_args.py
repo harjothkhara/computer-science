@@ -84,9 +84,18 @@ print(f3(8))     # Should print 9
 
 # YOUR CODE HERE
 def f4(**kwargs):
+    print(kwargs)
     for key, value in kwargs.items():
         print("key: {0}, value: {1}".format(key, value))
 
+# # another way
+# def f4(**kwargs):
+#     print(kwargs)
+#     for key in kwargs:
+#         print(f"key: {key}, value: {kwargs[key]}")
+
+
+f4(a=12, b=30)
 
 # Should print
 # key: a, value: 12
