@@ -1,4 +1,7 @@
-class Animal:
+from abc import ABC, abstractmethod
+
+
+class Animal(ABC):
     # constructor
     def __init__(self, skin_type, species, weight, color, name, environment):
         # instance attributes
@@ -9,17 +12,14 @@ class Animal:
         self.name = name
         self.environment = environment
 
+    @abstractmethod
     def move(self):
-        print(f"???")
+        pass
 
+    @abstractmethod
     def speak(self):
-        print('???')
+        pass
 
-
-# instantiate new object
-a = Animal("furry", "DOG", 12, "brown", "fido", "LAND")
-a.move()  # fido walks
-a.speak()  # ???
 
 # Create a subclass if you see a lot of repetition i.e species
 
@@ -38,6 +38,9 @@ class Dog(Animal):
         print(f"{self.name} walks")
 
 
+# instantiate new object - won't work until methods are filled out otherwise you get an error: 'Can't instantiate abstract class Animal with abstract methods move, speak'
+#a = Animal("furry", "DOG", 12, "brown", "fido", "LAND")
+
 #  new instance (object)
 d = Dog('rover', 15, "black")
 d.move()  # rover walks
@@ -45,5 +48,5 @@ d.speak()  # woof
 
 # another instance (object)
 d2 = Dog('king', 35, "spotted")
-d2.move()
-d2.speak()
+d2.move()  # king walks
+d2.speak()  # woof
