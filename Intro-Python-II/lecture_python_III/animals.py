@@ -9,31 +9,17 @@ class Animal:
         self.name = name
         self.environment = environment
 
-    def move(self):  # movement defined locally
-        if self.environment == 'WATER':
-            movement = 'swims'
-        elif self.environment == 'AIR':
-            movement = 'flies'
-        else:
-            movement = 'walks'
-        print(f"{self.name} {movement}")
+    def move(self):
+        print(f"???")
 
-    def speak(self):  # sound defined locally
-        if self.species == 'DOG':
-            sound = 'woof'
-        elif self.species == 'CAT':
-            sound = 'meow'
-        elif self.species == 'BIRD':
-            sound = 'tweet'
-        else:
-            sound = '???'
-        print(sound)
+    def speak(self):
+        print('???')
 
 
 # instantiate new object
 a = Animal("furry", "DOG", 12, "brown", "fido", "LAND")
 a.move()  # fido walks
-a.speak()  # woof
+a.speak()  # ???
 
 # Create a subclass if you see a lot of repetition i.e species
 
@@ -43,8 +29,21 @@ class Dog(Animal):
         # inherit from super class
         super().__init__("fur", "DOG", weight, color, name, "LAND")
 
+    # overiding speak method from super class
+    def speak(self):
+        print("woof")
 
-# instantiate new object
+    # overiding move method from super class
+    def move(self):
+        print(f"{self.name} walks")
+
+
+#  new object instance
 d = Dog('rover', 15, "black")
 d.move()  # rover walks
 d.speak()  # woof
+
+# another object instance
+d2 = Dog('king', 35, "spotted")
+d2.move()
+d2.speak()
