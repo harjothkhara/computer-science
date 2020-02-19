@@ -32,7 +32,7 @@ earlier adventurers. The only exit is to the south."""),
 }
 
 # Link rooms together
-
+# current_room  attribute - does the users current_room contain this directional attribute?
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -42,9 +42,7 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-#
 # Main
-#
 
 # Make a new player object that is currently in the 'outside' room.
 
@@ -65,13 +63,6 @@ p = Player(player_name, room['outside'])
 
 #textwrap.fill(text[, width[, ...]])
 
-# to_room = {
-#     'n': p.current_room.n_to,
-#     's': p.current_room.s_to,
-#     'e': p.current_room.e_to,
-#     'w': p.current_room.w_to,
-# }
-
 while True:
 
     print(f'Ready {p.name}\n')
@@ -88,10 +79,29 @@ while True:
             p.current_room = p.current_room.n_to
         else:
             print('you cannot enter')
+    elif user_input == 's':
+        if hasattr(p.current_room, 's_to'):
+            p.current_room = p.current_room.s_to
+        else:
+            print('you cannot enter')
+    elif user_input == 'e':
+        if hasattr(p.current_room, 'e_to'):
+            p.current_room = p.current_room.e_to
+        else:
+            print('you cannot enter')
+    elif user_input == 'w':
+        if hasattr(p.current_room, 'w_to'):
+            p.current_room = p.current_room.w_to
+        else:
+            print('you cannot enter')
     else:
-        print('not a valid move')
+        print('NOT A VALID MOVE\n')
 
     # Read
     # Evaluate
     # Print
     # Loop
+
+# hasattr() - The hasattr() method returns true if an object has the given named attribute and false if it does not. hasattr(object, name).
+# object - object whose named attribute is to be checked
+# name - name of the attribute to be searched
