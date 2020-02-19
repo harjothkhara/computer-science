@@ -49,7 +49,8 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 
 player_name = input("What is your name? ")
-p = Player(player_name)
+p = Player(player_name, room['outside'])
+# Room(name: Outside Cave Entrance, description: North of you, the cave mount beckons) <--- used str method in Room class
 
 # Write a loop that:
 #
@@ -64,18 +65,31 @@ p = Player(player_name)
 
 #textwrap.fill(text[, width[, ...]])
 
+# to_room = {
+#     'n': p.current_room.n_to,
+#     's': p.current_room.s_to,
+#     'e': p.current_room.e_to,
+#     'w': p.current_room.w_to,
+# }
+
 while True:
 
     print(f'Ready {p.name}\n')
-    print(f"You are currently in {p.current_room.upper()}\n")
-    print(textwrap.fill(room[p.current_room].description, 50), '\n')
-    user_input = input("Would you like to head n, s, e, or w \n ~~~~> ")
+    print(f"You are currently at {p.current_room.name}\n")
+    print(textwrap.fill(p.current_room.description, 50), '\n')
+    user_input = input(
+        "what direction do you want to move? n, s, e, or w \n ~~~~> ")
 
     if user_input == 'q' or user_input == 'quit':
         print('\n // GAME OVER\n')
         sys.exit(0)
+    elif user_input == 'n':
+        if hasattr(p.current_room, 'n_to'):
+            p.current_room = p.current_room.n_to
+        else:
+            print('you cannot enter')
     else:
-        continue
+        print('not a valid move')
 
     # Read
     # Evaluate
