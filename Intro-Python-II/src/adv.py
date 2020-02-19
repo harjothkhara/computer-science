@@ -1,10 +1,12 @@
 from room import Room
 from player import Player
+import textwrap
+
 # Create the REPL command parser in adv.py which allows the player to move to rooms in the four cardinal directions.
 # REPL = Read, Evaluate, Print, Loop
 
 # Declare all the rooms
-# room dictionary with key:value
+# room dictionary with key:value--> an instance of the class Room
 room = {
     'outside':
     Room("Outside Cave Entrance", "North of you, the cave mount beckons"),
@@ -44,7 +46,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-main_player = Player("Bob", 'outside')
+main_player = Player("Bob", 'overlook')
 main_player.current_room  # outside
 
 # Write a loop that:
@@ -58,10 +60,12 @@ main_player.current_room  # outside
 #
 # If the user enters "q", quit the game.
 
+#textwrap.fill(text[, width[, ...]])
+
 while True:
     # Read
     print(f"Current Location: {main_player.current_room}")
-    print(f"Current Description: {room[main_player.current_room].description}")
+    print(textwrap.fill(room[main_player.current_room].description, 50), '\n')
     direction = input("Please enter direction: (type n/e/s/w)\n ~~~~> ")
     # Evaluate
     # Print
