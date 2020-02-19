@@ -47,8 +47,9 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-main_player = Player("Bob", 'outside')
-main_player.current_room  # outside
+
+player_name = input("What is your name? ")
+p = Player(player_name)
 
 # Write a loop that:
 #
@@ -64,20 +65,19 @@ main_player.current_room  # outside
 #textwrap.fill(text[, width[, ...]])
 
 while True:
-    # Read
-    print('You wake up.\n')
-    print(f"// {main_player.current_room.upper()}\n")
 
-    print(textwrap.fill(room[main_player.current_room].description, 50), '\n')
-
-    user_input = input()
+    print(f'Ready {p.name}\n')
+    print(f"You are currently in {p.current_room.upper()}\n")
+    print(textwrap.fill(room[p.current_room].description, 50), '\n')
+    user_input = input("Would you like to head n, s, e, or w \n ~~~~> ")
 
     if user_input == 'q' or user_input == 'quit':
-        print('*you can checkout anytime but you can never leave*\n')
-        print('// GAME OVER\n')
+        print('\n // GAME OVER\n')
         sys.exit(0)
-    #direction = input("Please enter direction: (type n/e/s/w)\n ~~~~> ")
+    else:
+        continue
 
+    # Read
     # Evaluate
     # Print
     # Loop

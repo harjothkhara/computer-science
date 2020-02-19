@@ -4,7 +4,25 @@
 
 class Player:
     # constructor
-    def __init__(self, name, current_room):
+    def __init__(self, name):
         # instance attributes
         self.name = name
-        self.current_room = current_room
+        self.current_room = "outside"
+
+    def set_room(self, room):
+        """
+        This method sets the new room for the player as they move throughout the game
+        """
+        self.room = room
+
+    def __str__(self):
+        """
+        Replacement string method for the Player class
+        """
+        return f"The current player is {self.name} and they are in {self.current_room}"
+
+    def __repr__(self):
+        """
+        REPR method for the Player class
+        """
+        return f"Player({repr(self.name)})"
