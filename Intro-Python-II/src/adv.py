@@ -45,7 +45,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 main_player = Player("Bob", 'outside')
-print(main_player.current_room)
+main_player.current_room  # outside
 
 # Write a loop that:
 #
@@ -60,9 +60,9 @@ print(main_player.current_room)
 
 while True:
     # Read
-    user = input("Please enter direction: (type n/e/s/w)\n ~~~~> ")
+    print(f"Current Location: {main_player.current_room}")
+    print(f"Current Description: {room[main_player.current_room].description}")
+    direction = input("Please enter direction: (type n/e/s/w)\n ~~~~> ")
     # Evaluate
     # Print
-    print(main_player.current_room)
-    user = input("Please enter direction: (type n/e/s/w)\n ~~~~> ")
     # Loop

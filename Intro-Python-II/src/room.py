@@ -15,4 +15,4 @@ class Room:
 
 
 r = Room("Outside Cave Entrance", "North of you, the cave mount beckons")
-print(r)
+#print(r.description)
