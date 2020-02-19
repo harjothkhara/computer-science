@@ -1,7 +1,4 @@
-from abc import ABC, abstractmethod
-
-
-class Animal(ABC):
+class Animal():
     # constructor
     def __init__(self, skin_type, species, weight, color, name, environment):
         # instance attributes
@@ -11,14 +8,13 @@ class Animal(ABC):
         self.color = color
         self.name = name
         self.environment = environment
+        # print("WARNING: Generic animal not advised")
 
-    @abstractmethod
     def move(self):
-        pass
+        print("??? Movement not defined")
 
-    @abstractmethod
     def speak(self):
-        pass
+        print("??? Speak not defined")
 
 
 # Create a subclass if you see a lot of repetition i.e species
@@ -39,7 +35,7 @@ class Dog(Animal):
 
 
 # instantiate new object - won't work until methods are filled out otherwise you get an error: 'Can't instantiate abstract class Animal with abstract methods move, speak'
-#a = Animal("furry", "DOG", 12, "brown", "fido", "LAND")
+a = Animal("furry", "DOG", 12, "brown", "fido", "LAND")
 
 #  new instance (object)
 d = Dog('rover', 15, "black")
