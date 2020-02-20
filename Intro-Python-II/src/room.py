@@ -4,17 +4,18 @@
 
 class Room:
     # constructor
-    def __init__(self, name, description):
+    def __init__(self, name, description, item_list):
         # instance attributes
         self.name = name
         self.description = description
+        self.item_list = item_list
         # self.n_to = None
         # self.s_to = None
         # self.e_to = None
         # self.w_to = None
 
     def __str__(self):
-        return f'Room(name: {self.name}, description: {self.description})'
+        return f'Room(name: {self.name}, description: {self.description}, Item List: {self.item_list})'
 
     def __repr__(self):
         """
@@ -24,7 +25,8 @@ class Room:
 
 
 # second argument in Player class - current_room (Room instance below)
-r = Room("Outside Cave Entrance", "North of you, the cave mount beckons")
+r = Room("Outside Cave Entrance", "North of you, the cave mount beckons",
+         ['sword', 'dagger', 'knife'])
 #print(r)
 # current_room.name = "Outside Cave Entrance"
 # current_room.description = "North of you, the cave mount beckons"
