@@ -10,29 +10,41 @@ import sys
 # Declare all the rooms
 # room dictionary with key:value--> an instance of the class Room
 
-k = Item("Key", "An ancient gold key that shines with an ethereal shinner.")
+k = Item("Keys", "An ancient gold key that shines with an ethereal shinner.")
+#print(k)
+# Item(name: Keys, description: An ancient gold key that shines with an ethereal shinner.
+s = Item(
+    "Sword",
+    "Those sparks during battles are REAL! Our knights use real weapons - even swords made from titanium!"
+)
+d = Item("Dagger",
+         "a small sharp pointy thing that protects Monty Python from evil")
+r = Item("Revolver",
+         "perpendicular looking handgun with a chamber barrel for firing")
+w = Item("Wrench", "used to apply torque to turn an object")
 
 room = {
     'outside':
-    Room("Outside Cave Entrance", "North of you, the cave mount beckons", [k]),
+    Room("Outside Cave Entrance", "North of you, the cave mount beckons",
+         [k.name]),
     'foyer':
     Room(  # dict value is an instance of the Room class
         "Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", [k]),
+passages run north and east.""", [s.name]),
     'overlook':
     Room(
         "Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", [k]),
+the distance, but there is no way across the chasm.""", [d.name]),
     'narrow':
     Room(
         "Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", [k]),
+to north. The smell of gold permeates the air.""", [r.name]),
     'treasure':
     Room(
         "Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", [k]),
+earlier adventurers. The only exit is to the south.""", [w.name]),
 }
 
 # Link rooms together
@@ -71,6 +83,7 @@ while True:
 
     print(f'Ready {p.name}\n')
     print(f"You are currently at {p.current_room.name}\n")
+    print(f"This room has the following items: {p.current_room.item_list}\n")
     print(textwrap.fill(p.current_room.description, 50), '\n')
     user_input = input(
         "what direction do you want to move? n, s, e, or w \n ~~~~> ")
