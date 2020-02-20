@@ -21,7 +21,7 @@ class Room:
         """
       REPR method for the Room class
       """
-        return f"Room({repr(self.name)})"
+        return f"Room({repr(self.name)}, {repr(self.description)}, {repr(self.item_list)} )"
 
 
 # second argument in Player class - current_room (Room instance below)

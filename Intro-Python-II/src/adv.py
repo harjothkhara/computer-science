@@ -79,10 +79,13 @@ p = Player(player_name, room['outside'])
 
 #textwrap.fill(text[, width[, ...]])
 
+# current_room == Room instance
 while True:
 
     print(f'Ready {p.name}\n')
+    # give me name attribute on the Room instance
     print(f"You are currently at {p.current_room.name}\n")
+    # give me item_list attribute on the Room instance
     print(f"This room has the following items: {p.current_room.item_list}\n")
     print(textwrap.fill(p.current_room.description, 50), '\n')
     user_input = input(
