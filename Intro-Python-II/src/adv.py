@@ -88,34 +88,47 @@ while True:
     # give me item_list attribute on the Room instance
     print(f"This room has the following items: {p.current_room.item_list}\n")
     print(textwrap.fill(p.current_room.description, 50), '\n')
-    user_input = input(
-        "what direction do you want to move? n, s, e, or w \n ~~~~> ")
 
-    if user_input == 'q' or user_input == 'quit':
-        print('\n // GAME OVER\n')
-        sys.exit(0)
-    elif user_input == 'n':
-        if hasattr(p.current_room, 'n_to'):
-            p.current_room = p.current_room.n_to
+    user_input = input(
+        "what direction do you want to move? n, s, e, or w \n ~~~~> ").strip(
+        ).lower().split()
+
+    print(user_input, f"hello")
+
+    if len(user_input) == 2:
+        print("we have an item in here")
+
+    if len(user_input) == 1:
+        # char length of fist list item to make sure its 'n, s, e, w
+        print(user_input, "inside user_input 1")
+        if len(user_input[0]) > 1:
+            print('unknown command', print(len(user_input[0])))
+            break
+        if user_input[0] == 'q' or user_input == 'quit':
+            print('\n // GAME OVER\n')
+            sys.exit(0)
+        elif user_input[0] == 'n':
+            if hasattr(p.current_room, 'n_to'):
+                p.current_room = p.current_room.n_to
+            else:
+                print('you cannot enter')
+        elif user_input[0] == 's':
+            if hasattr(p.current_room, 's_to'):
+                p.current_room = p.current_room.s_to
+            else:
+                print('you cannot enter')
+        elif user_input[0] == 'e':
+            if hasattr(p.current_room, 'e_to'):
+                p.current_room = p.current_room.e_to
+            else:
+                print('you cannot enter')
+        elif user_input[0] == 'w':
+            if hasattr(p.current_room, 'w_to'):
+                p.current_room = p.current_room.w_to
+            else:
+                print('you cannot enter')
         else:
-            print('you cannot enter')
-    elif user_input == 's':
-        if hasattr(p.current_room, 's_to'):
-            p.current_room = p.current_room.s_to
-        else:
-            print('you cannot enter')
-    elif user_input == 'e':
-        if hasattr(p.current_room, 'e_to'):
-            p.current_room = p.current_room.e_to
-        else:
-            print('you cannot enter')
-    elif user_input == 'w':
-        if hasattr(p.current_room, 'w_to'):
-            p.current_room = p.current_room.w_to
-        else:
-            print('you cannot enter')
-    else:
-        print('NOT A VALID MOVE\n')
+            print('NOT A VALID MOVE\n')
 
     # Read
     # Evaluate
