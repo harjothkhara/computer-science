@@ -8,7 +8,7 @@ class Player:
         # instance attributes
         self.name = name
         self.current_room = current_room
-        self.inventory = inventory
+        self.inventory = inventory  # items
 
     # def set_room(self, room):
     #     """

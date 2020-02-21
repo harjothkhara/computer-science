@@ -6,11 +6,11 @@ class Item:
     def on_take(self):
         print(f"You have picked up: {self.name}")
 
-    def _on_drop(self):
+    def on_drop(self):
         print(f"You have dropped: {self.name} ")
 
     def __str__(self):
-        return f'Item(name: {self.name}, description: {self.description}'
+        return f'Items(name: {self.name}, description: {self.description}'
 
     def __repr__(self):
         """
