@@ -1,12 +1,19 @@
-# The following list comprehension exercises will make use of the 
-# defined Human class. 
+# The following list comprehension exercises will make use of the
+# defined Human class.
+# baseclass
+import math
+
+
 class Human:
+    # constructor with defined attributes
     def __init__(self, name, age):
         self.name = name
         self.age = age
+    # method for developers
 
     def __repr__(self):
         return f"<Human: {self.name}, {self.age}>"
+
 
 humans = [
     Human("Alice", 29),
@@ -66,6 +73,5 @@ print(g)
 
 # Write a list comprehension that contains the square root of all the ages.
 print("Square root of ages:")
-import math
 h = []
 print(h)
