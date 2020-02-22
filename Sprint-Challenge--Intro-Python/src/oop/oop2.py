@@ -11,7 +11,7 @@ class GroundVehicle:
 
     # methods
     def drive(self):
-        return f"vroooom, i have {self.num_wheels} wheels"
+        return f"vroooom"
 
 
 g = GroundVehicle().drive()
@@ -38,7 +38,7 @@ class Motorcycle(GroundVehicle):
     # method (overidding)
     def drive(self):
         super().drive()
-        return f"BRAAAP!! i have {self.num_wheels} wheels"
+        return f"BRAAAP!!"
 
 
 m = Motorcycle().drive()
