@@ -26,7 +26,7 @@ class Room:
 
 
 k = Item("Keys", "An ancient gold key that shines with an ethereal shinner.")
-#print(k)
+print(k)
 s = Item(
     "Sword",
     "Those sparks during battles are REAL! Our knights use real weapons - even swords made from titanium!"
