@@ -18,4 +18,58 @@
 #
 # Put a comment noting which class is the base class
 
-print("test")
+
+# base class
+class Vehicle:
+    # constructor
+    def __init__(self):
+        # attributes
+        pass
+
+
+class GroundVehicle(Vehicle):
+    # constructor
+    def __init__(self):
+        pass
+    # inherited attributes
+    # super().__init__()
+
+
+class Car(GroundVehicle):
+    # constructor
+    def __init__(self):
+        pass
+    # # inherited attributes
+    # super().__init__()
+
+
+class Motorcycle(GroundVehicle):
+    # constructor
+    def __init__(self):
+        pass
+    # inherited attributes
+    # super().__init__()
+
+
+class FlightVehicle(Vehicle):
+    # constructor
+    def __init__(self):
+        pass
+    # inherited attributes
+    # super().__init__()
+
+
+class Airplane(FlightVehicle):
+    # constructor
+    def __init__(self):
+        pass
+    # inherited attributes
+    # super().__init__()
+
+
+class Starship(FlightVehicle):
+    # constructor
+    def __init__(self):
+        pass
+    # inherited attributes
+    # super().__init__()
