@@ -10,7 +10,7 @@ class Item:
         print(f"You have dropped: {self.name} ")
 
     def __str__(self):
-        return f'Items(name: {self.name}, description: {self.description}'
+        return f'Item List(name: {self.name}, description: {self.description}'
 
     def __repr__(self):
         """

@@ -48,7 +48,7 @@ earlier adventurers. The only exit is to the south.""", [w]),
 }
 
 # Link rooms together
-# current_room  attribute - does the users current_room contain this directional attribute?
+# current_room  attribute - does the users current_room contain this directional attribute? Association - "has-a" relationship. Room has a direction attribute.
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -97,14 +97,14 @@ while True:
 
     # collecting items commands
     if len(user_input) == 2:
-        print("we have an item in here")
+        #print("we have an item in here")
         if user_input[0] == 'get' or user_input[0] == 'take':
             item_found = False
             for item in p.current_room.items:
-                print(item.name, user_input[1])
+                #print(item)
                 # looking at contents of the current room is see if the item is there
                 if item.name == user_input[1]:
-                    print(item.name)
+                    #print(item.name, user_input[1])
                     # if it is there, remove from room inventory
                     p.current_room.items.remove(item)
                     # and add it to the player inventory
@@ -117,9 +117,9 @@ while True:
         elif user_input[0] == 'drop':
             had_item = False
             for item in p.inventory:
-                print(item)
+                #print(item)
                 if item.name == user_input[1]:
-                    print(item.name, user_input[1])
+                    #print(item.name, user_input[1])
                     p.inventory.remove(item)
                     p.current_room.items.append(item)
                     item.on_drop()
@@ -137,31 +137,50 @@ while True:
         # char length of fist list item to make sure its 'n, s, e, w
         #print(user_input, "inside user_input 1")
         if len(user_input[0]) > 1:
-            print('unknown command', print(len(user_input[0])))
+            print('unknown command', len(user_input[0]))
             break
-        if user_input[0] == 'q' or user_input == 'quit':
-            print('\n // GAME OVER\n')
-            sys.exit(0)
-        elif user_input[0] == 'n':
-            if hasattr(p.current_room, 'n_to'):
-                p.current_room = p.current_room.n_to
+        if user_input[0] in ['n', 's', 'e', 'w']:
+            # move to that room
+            # room['outside']
+            current_room = p.current_room
+            # is there an association attached to current_room
+            # room['outside']    .n  _to
+            next_room = getattr(current_room, f"{user_input[0]}_to")
+            print(next_room, "next_room")
+            print(current_room, "current_room")
+            print(user_input[0], "user input")
+            # if there is an association attached to current_room
+            if next_room is not None:
+                #room['outside'] = room['outside'].n_to
+                p.current_room = next_room
             else:
-                print('you cannot enter')
-        elif user_input[0] == 's':
-            if hasattr(p.current_room, 's_to'):
-                p.current_room = p.current_room.s_to
-            else:
-                print('you cannot enter')
-        elif user_input[0] == 'e':
-            if hasattr(p.current_room, 'e_to'):
-                p.current_room = p.current_room.e_to
-            else:
-                print('you cannot enter')
-        elif user_input[0] == 'w':
-            if hasattr(p.current_room, 'w_to'):
-                p.current_room = p.current_room.w_to
-            else:
-                print('you cannot enter')
+                print('you cannot move in that direction')
+        #     if user_input[0] == 'n':
+        #         # checking if there a room to the north of us
+        #         # checking if there is a valid association "has-a"
+        #         if p.current_room.n_to is not None:
+        #             # set our current room to the room in the north
+        #             p.current_room = p.current_room.n_to
+        #         else:
+        #             print('you cannot move in that direction')
+        # elif user_input[0] == 's':
+        #     if hasattr(p.current_room, 's_to'):
+        #         p.current_room = p.current_room.s_to
+        #     else:
+        #         print('you cannot enter')
+        # elif user_input[0] == 'e':
+        #     if hasattr(p.current_room, 'e_to'):
+        #         p.current_room = p.current_room.e_to
+        #     else:
+        #         print('you cannot enter')
+        # elif user_input[0] == 'w':
+        #     if hasattr(p.current_room, 'w_to'):
+        #         p.current_room = p.current_room.w_to
+        #     else:
+        #         print('you cannot enter')
+        # elif user_input[0] == 'q' or 'quit':
+        #     print('\n // GAME OVER\n')
+        #     exit()
         else:
             print('NOT A VALID MOVE\n')
 
@@ -171,5 +190,10 @@ while True:
     # Loop
 
 # hasattr() - The hasattr() method returns true if an object has the given named attribute and false if it does not. hasattr(object, name).
+# getattr() - returns the value of the name attribute of the given object, and not a boolean. e.g
+# r = class Room: ..... /////
+# >>> r.s_to = "yolo"
+# >>> getattr(r, 's_to')
+# 'yolo'
 # object - object whose named attribute is to be checked
 # name - name of the attribute to be searched

@@ -4,10 +4,10 @@
 
 class Player:
     # constructor
-    def __init__(self, name, current_room, inventory=[]):
+    def __init__(self, name, starting_room, inventory=[]):
         # instance attributes
         self.name = name
-        self.current_room = current_room
+        self.current_room = starting_room
         self.inventory = inventory  # items
 
     # def set_room(self, room):

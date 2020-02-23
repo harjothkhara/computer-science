@@ -10,10 +10,11 @@ class Room:
         self.name = name
         self.description = description
         self.items = items
-        # self.n_to = None
-        # self.s_to = None
-        # self.e_to = None
-        # self.w_to = None
+        # defaults to null until we check for a valid association
+        self.n_to = None
+        self.s_to = None
+        self.e_to = None
+        self.w_to = None
 
     def __str__(self):
         return f'Room(name: {self.name}, description: {self.description}, items: {[item for item in self.items]})'
@@ -26,7 +27,7 @@ class Room:
 
 
 k = Item("Keys", "An ancient gold key that shines with an ethereal shinner.")
-print(k)
+#print(k)
 s = Item(
     "Sword",
     "Those sparks during battles are REAL! Our knights use real weapons - even swords made from titanium!"
