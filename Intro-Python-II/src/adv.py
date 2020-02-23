@@ -146,41 +146,15 @@ while True:
             # is there an association attached to current_room
             # room['outside']    .n  _to
             next_room = getattr(current_room, f"{user_input[0]}_to")
-            print(next_room, "next_room")
-            print(current_room, "current_room")
-            print(user_input[0], "user input")
+            #print(next_room, "next_room")  # returns next room
+            #print(current_room, "current_room")
+            #print(user_input[0], "user input")
             # if there is an association attached to current_room
             if next_room is not None:
                 #room['outside'] = room['outside'].n_to
                 p.current_room = next_room
             else:
                 print('you cannot move in that direction')
-        #     if user_input[0] == 'n':
-        #         # checking if there a room to the north of us
-        #         # checking if there is a valid association "has-a"
-        #         if p.current_room.n_to is not None:
-        #             # set our current room to the room in the north
-        #             p.current_room = p.current_room.n_to
-        #         else:
-        #             print('you cannot move in that direction')
-        # elif user_input[0] == 's':
-        #     if hasattr(p.current_room, 's_to'):
-        #         p.current_room = p.current_room.s_to
-        #     else:
-        #         print('you cannot enter')
-        # elif user_input[0] == 'e':
-        #     if hasattr(p.current_room, 'e_to'):
-        #         p.current_room = p.current_room.e_to
-        #     else:
-        #         print('you cannot enter')
-        # elif user_input[0] == 'w':
-        #     if hasattr(p.current_room, 'w_to'):
-        #         p.current_room = p.current_room.w_to
-        #     else:
-        #         print('you cannot enter')
-        # elif user_input[0] == 'q' or 'quit':
-        #     print('\n // GAME OVER\n')
-        #     exit()
         else:
             print('NOT A VALID MOVE\n')
 
