@@ -80,18 +80,16 @@ p = Player(player_name, room['outside'], [])
 #textwrap.fill(text[, width[, ...]])
 
 # current_room == Room instance
+print(f'\nReady {p.name}\n')
+print(f"You are currently at {p.current_room.name}\n")
+print(f"My items: {p.inventory}\n")
+
 while True:
 
-    print(f'Ready {p.name}\n')
-    # give me name attribute on the Room instance
-    print(f"You are currently at {p.current_room.name}\n")
-    # give me item_list attribute on the Room instance
-    print(f"This room has the following items: {p.current_room.items}\n")
-    print(textwrap.fill(p.current_room.description, 50), '\n')
-
-    user_input = input(
-        "what direction do you want to move? n, s, e, or w \n ~~~~> ").strip(
-        ).lower().split()
+    user_input = input("enter directions:(n)orth, (s)outh, (e)ast. (w)est \n"
+                       "choose action: get/take item, drop item\n"
+                       "or (q)uit:\n"
+                       "~~~~> ").strip().lower().split()
 
     # print(user_input, f"hello")
 
@@ -110,6 +108,8 @@ while True:
                     # and add it to the player inventory
                     p.inventory.append(item)
                     item.on_take()
+                    # item inventory
+                    print(f"My items: {p.inventory}\n")
                     item_found = True
                     break
             if item_found is False:
@@ -117,9 +117,9 @@ while True:
         elif user_input[0] == 'drop':
             had_item = False
             for item in p.inventory:
-                #print(item)
+                print(item)
                 if item.name == user_input[1]:
-                    #print(item.name, user_input[1])
+                    print(item.name, user_input[1])
                     p.inventory.remove(item)
                     p.current_room.items.append(item)
                     item.on_drop()
@@ -141,22 +141,9 @@ while True:
             break
         if user_input[0] in ['n', 's', 'e', 'w']:
             # move to that room
-            # room['outside']
-            current_room = p.current_room
-            # is there an association attached to current_room
-            # room['outside']    .n  _to
-            next_room = getattr(current_room, f"{user_input[0]}_to")
-            #print(next_room, "next_room")  # returns next room
-            #print(current_room, "current_room")
-            #print(user_input[0], "user input")
-            # if there is an association attached to current_room
-            if next_room is not None:
-                #room['outside'] = room['outside'].n_to
-                p.current_room = next_room
-            else:
-                print('you cannot move in that direction')
+            p.travel(user_input[0])
         else:
-            print('NOT A VALID MOVE\n')
+            print('\nNOT A VALID MOVE\n')
 
     # Read
     # Evaluate

@@ -4,10 +4,10 @@ class Item:
         self.description = description
 
     def on_take(self):
-        print(f"You have picked up: {self.name}")
+        print(f"\nYou have picked up: {self.name}\n")
 
     def on_drop(self):
-        print(f"You have dropped: {self.name} ")
+        print(f"\nYou have dropped: {self.name}\n")
 
     def __str__(self):
         return f'Item List(name: {self.name}, description: {self.description}'
