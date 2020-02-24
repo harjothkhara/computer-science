@@ -96,7 +96,7 @@ while True:
     # collecting items commands
     if len(user_input) == 2:
         #print("we have an item in here")
-        if user_input[0] == 'get' or user_input[0] == 'take':
+        if user_input[0] == 'get' or 'take':
             item_found = False
             for item in p.current_room.items:
                 #print(item)
@@ -136,12 +136,12 @@ while True:
     elif len(user_input) == 1:
         # char length of fist list item to make sure its 'n, s, e, w
         #print(user_input, "inside user_input 1")
-        if len(user_input[0]) > 1:
-            print('unknown command', len(user_input[0]))
-            break
         if user_input[0] in ['n', 's', 'e', 'w']:
             # move to that room
             p.travel(user_input[0])
+        elif user_input[0] == 'q':
+            print("Goodbye!")
+            exit()
         else:
             print('\nNOT A VALID MOVE\n')
 
