@@ -17,7 +17,7 @@ class Room:
         self.w_to = None
 
     def __str__(self):
-        return f'Room(name: {self.name}, description: {self.description}, items: {[item for item in self.items]})'
+        return f'Room(name: {self.name}, description: {self.description}, items: {[item.name for item in self.items]})'
 
     def __repr__(self):
         """

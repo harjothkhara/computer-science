@@ -25,8 +25,7 @@ w = Item("wrench", "used to apply torque to turn an object")
 
 room = {
     'outside':
-    Room("Outside Cave Entrance", "North of you, the cave mount beckons",
-         'no item'),
+    Room("Outside Cave Entrance", "North of you, the cave mount beckons"),
     'foyer':
     Room(  # dict value is an instance of the Room class
         "Foyer", """Dim light filters in from the south. Dusty
@@ -82,6 +81,7 @@ p = Player(player_name, room['outside'], [])
 # current_room == Room instance
 print(f'\nReady {p.name}\n')
 print(f"You are currently at {p.current_room.name}\n")
+print(f"This room has the following items: {p.current_room.items}\n")
 print(f"My items: {p.inventory}\n")
 
 while True:
@@ -96,37 +96,10 @@ while True:
     # collecting items commands
     if len(user_input) == 2:
         #print("we have an item in here")
-        if user_input[0] == 'get' or 'take':
-            item_found = False
-            for item in p.current_room.items:
-                #print(item)
-                # looking at contents of the current room is see if the item is there
-                if item.name == user_input[1]:
-                    #print(item.name, user_input[1])
-                    # if it is there, remove from room inventory
-                    p.current_room.items.remove(item)
-                    # and add it to the player inventory
-                    p.inventory.append(item)
-                    item.on_take()
-                    # item inventory
-                    print(f"My items: {p.inventory}\n")
-                    item_found = True
-                    break
-            if item_found is False:
-                print("The item you want to get/take is not in this room")
+        if user_input[0] == 'get' or user_input[0] == 'take':
+            p.grab_item(user_input[1])
         elif user_input[0] == 'drop':
-            had_item = False
-            for item in p.inventory:
-                print(item)
-                if item.name == user_input[1]:
-                    print(item.name, user_input[1])
-                    p.inventory.remove(item)
-                    p.current_room.items.append(item)
-                    item.on_drop()
-                    had_item = True
-                    break
-            if had_item is False:
-                print("You do not have the item you want to drop")
+            p.drop_item(user_input[1])
         else:
             print(
                 "command not recognized. 'get or take' to add an item or 'drop' to drop  an item"

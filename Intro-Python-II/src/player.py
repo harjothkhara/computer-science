@@ -33,6 +33,47 @@ class Player:
         else:
             print('\nyou cannot move in that direction\n')
 
+    def grab_item(self, item_name):
+        item_found = False
+        for item in self.current_room.items:
+            #print(item)
+            # looking at contents of the current room is see if the item is there
+            if item.name == item_name:
+                #print(item.name, user_input[1])
+                # if it is there, remove from room inventory
+                self.current_room.items.remove(item)
+                # and add it to the player inventory
+                self.inventory.append(item)
+                item.on_take()
+                print(
+                    f"this room: {self.current_room.name} now has {self.current_room.items}\n"
+                )
+                # item inventory
+                print(f"My items: {self.inventory}\n")
+                item_found = True
+                break
+        if item_found is False:
+            print("\nThe item you want to get/take is not in this room\n")
+
+    def drop_item(self, item_name):
+        had_item = False
+        for item in self.inventory:
+            #print(item)
+            if item.name == item_name:
+                #print(item.name, item_name)
+                self.inventory.remove(item)
+                self.current_room.items.append(item)
+                item.on_drop()
+                print(
+                    f"this room: {self.current_room.name} now has {self.current_room.items}\n"
+                )
+                # item inventory
+                print(f"My items: {self.inventory}\n")
+                had_item = True
+                break
+        if had_item is False:
+            print("\nYou do not have the item you want to drop\n")
+
     def __str__(self):
         """
         Replacement string method for the Player class
