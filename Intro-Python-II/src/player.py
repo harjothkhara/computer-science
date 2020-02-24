@@ -28,9 +28,9 @@ class Player:
             # give me item_list attribute on the Room instance
             print(textwrap.fill(self.current_room.description, 50), '\n')
             print(
-                f"This room has the following items: {self.current_room.items}\n"
+                f"This room has the following items: {[str(i.name) for i in self.current_room.items]}\n"
             )
-            print(f"My items: {self.inventory}\n")
+            print(f"My items: {[str(i.name) for i in self.inventory]}\n")
         else:
             print('\nyou cannot move in that direction\n')
 
@@ -47,10 +47,10 @@ class Player:
                 self.inventory.append(item)
                 item.on_take()
                 print(
-                    f"this room: {self.current_room.name} now has {self.current_room.items}\n"
+                    f"this room: {self.current_room.name} now has {[str(i.name) for i in self.current_room.items]}\n"
                 )
                 # item inventory
-                print(f"My items: {self.inventory}\n")
+                print(f"My items: {[str(i.name) for i in self.inventory]}\n")
                 item_found = True
                 break
         if item_found is False:
@@ -66,10 +66,10 @@ class Player:
                 self.current_room.items.append(item)
                 item.on_drop()
                 print(
-                    f"this room: {self.current_room.name} now has {self.current_room.items}\n"
+                    f"this room: {self.current_room.name} now has {[str(i.name) for i in self.current_room.items]}\n"
                 )
                 # item inventory
-                print(f"My items: {self.inventory}\n")
+                print(f"My items: {[str(i.name) for i in self.inventory]}\n")
                 had_item = True
                 break
         if had_item is False:

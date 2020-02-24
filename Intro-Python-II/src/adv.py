@@ -25,11 +25,11 @@ w = Item("wrench", "used to apply torque to turn an object")
 
 room = {
     'outside':
-    Room("Outside Cave Entrance", "North of you, the cave mount beckons"),
+    Room("Outside Cave Entrance", "North of you, the cave mount beckons", [k]),
     'foyer':
     Room(  # dict value is an instance of the Room class
         "Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", [s]),
+passages run north and east.""", [s, r]),
     'overlook':
     Room(
         "Grand Overlook", """A steep cliff appears before you, falling
@@ -38,7 +38,7 @@ the distance, but there is no way across the chasm.""", [d]),
     'narrow':
     Room(
         "Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", [r]),
+to north. The smell of gold permeates the air."""),
     'treasure':
     Room(
         "Treasure Chamber", """You've found the long-lost treasure
@@ -81,8 +81,10 @@ p = Player(player_name, room['outside'], [])
 # current_room == Room instance
 print(f'\nReady {p.name}\n')
 print(f"You are currently at {p.current_room.name}\n")
-print(f"This room has the following items: {p.current_room.items}\n")
-print(f"My items: {p.inventory}\n")
+print(
+    f"This room has the following items: {[str(i.name) for i in p.current_room.items]}\n"
+)
+print(f"My items: {[str(i.name) for i in p.inventory]}\n")
 
 while True:
 
