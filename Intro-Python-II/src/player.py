@@ -14,6 +14,7 @@ class Player:
     def travel(self, direction):
         # is there an association attached to current_room
         # room['outside']    .n  _to
+        # Grab the n/s/e/w_to attribute from the room
         next_room = getattr(self.current_room, f"{direction}_to")
         #print(next_room, "next_room")  # returns next room
         #print(current_room, "current_room")
