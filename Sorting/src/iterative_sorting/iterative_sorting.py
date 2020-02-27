@@ -1,30 +1,47 @@
-# TO-DO: Complete the selection_sort() function below 
-def selection_sort( arr ):
+# TO-DO: Complete the selection_sort() function below
+def selection_sort(arr):
     # loop through n-1 elements
     for i in range(0, len(arr) - 1):
         cur_index = i
         smallest_index = cur_index
         # TO-DO: find next smallest element
-        # (hint, can do in 3 loc) 
-             
-
-
+        # (hint, can do in 3 loc)
 
         # TO-DO: swap
-
-
-
 
     return arr
 
 
 # TO-DO:  implement the Bubble Sort function below
-def bubble_sort( arr ):
 
-    return arr
 
+# index    0   1   2   3   4
+    arr = [5,  2,  6,  3,  8]
+    #      |   |   |   |   |- 'sorted bubbled number'
+    #     i=0 i=1 i=2 i=3
+
+
+def bubble_sort(arr):
+    # 1. Loop through your array
+    # get index and loop through array -  no need to check end 'bubbled number'
+    for i in range(0, len(arr)-1):
+        # print(i)  # 0, 1, 2, 3,
+        #     - Compare each element to its neighbor
+        if arr[i] > arr[i+1]:
+            #     - If elements in wrong position (relative to each other, swap them)
+            swap = True
+            arr[i], arr[i+1] = arr[i+1], arr[i]
+# 2. If no swaps performed, stop. Else, go back to the element at index 0 and repeat step 1.
+        else:
+            swap = False
+    print(arr)
+
+
+bubble_sort(arr=[5,  2,  6,  3,  8])
 
 # STRETCH: implement the Count Sort function below
-def count_sort( arr, maximum=-1 ):
+
+
+def count_sort(arr, maximum=-1):
 
     return arr
