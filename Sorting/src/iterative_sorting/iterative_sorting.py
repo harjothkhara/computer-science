@@ -16,9 +16,12 @@ def selection_sort(arr):
 
 
 # index    0   1   2   3   4
-    arr = [5,  2,  6,  3,  8]
+    arr = [2,  5,  3,  6,  8]
     #      |   |   |   |   |- 'sorted bubbled number'
     #     i=0 i=1 i=2 i=3
+
+i = 3
+swap = False
 
 
 def bubble_sort(arr):
@@ -35,6 +38,8 @@ def bubble_sort(arr):
         else:
             swap = False
     print(arr)
+
+#[2, 5, 3, 6, 8] <-- our list is not ordered yet (need to iterate through each list int and compare more then once). need to do a nested for loop
 
 
 bubble_sort(arr=[5,  2,  6,  3,  8])
