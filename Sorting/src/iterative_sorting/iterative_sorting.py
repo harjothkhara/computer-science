@@ -1,20 +1,51 @@
 # TO-DO: Complete the selection_sort() function below
+# Selection Sort -  During each iteration select the smallest item from the unsorted partition and move it to the the sorted partition. Sets the first item as the min and then cycles through the rest of the items until it finds an item less then the current min, if so it sets it to it and inputs in the correct location in the sorted part of the array.
+# sorted |
+# initial min
+#    0      1      2     3    4
+#         arr = [2,     3,     5,    6,   8]
+#                |      |      |     |    |
+#         i=3   ✅     ✅     ✅   #min
+#                                    ✅   ✅  j
+# c_min_index = 3
+
+
 def selection_sort(arr):
-    # loop through n-1 elements
+    # Start with current index = 0
+    # For all indices EXCEPT the last index:
+    # loop through n-1 elements or repeat num of elements -1 times
     for i in range(0, len(arr) - 1):
-        cur_index = i
-        smallest_index = cur_index
-        # TO-DO: find next smallest element
-        # (hint, can do in 3 loc)
+        # set the first unsorted element as the min
+        c_min_index = i  # tracking min index in each iteration of i
+        # for each of the unsorted elements
+        # scanning values for min
+        for j in range(i+1, len(arr)):
+            # if element < current min
+            if arr[j] < arr[c_min_index]:
+                # finding and setting element as new min (if there is one)
+                c_min_index = j  # swapping index
+        # once we've looped through j, we check if our current min index changed
+        if c_min_index != i:  # swapping values
+            # b. Swap the element at current index with the smallest element found in above loop
+            arr[i], arr[c_min_index] = arr[c_min_index], arr[i]
 
-        # TO-DO: swap
+    print(arr)
 
-    return arr
+    # a. Loop through elements on right-hand-side of current index and find the smallest element
 
+    # TO-DO: find next smallest element
+    # (hint, can do in 3 loc)
+
+    # TO-DO: swap
+
+
+print("selection sort")
+selection_sort(arr=[5,  2,  6,  3,  8])
+print("selection sort")
 
 # TO-DO:  implement the Bubble Sort function below
 
-#           ✅     ✅    ✅   ✅   ✅ 
+#                ✅    ✅   ✅   ✅ 
 # # index    0      1     2     3    4
 #     arr = [2,     3,    5,    6,   8]
 #     #      |      |     |     |    |- 'sorted bubbled number'
@@ -33,7 +64,7 @@ def bubble_sort(arr):
         for j in range(0, len(arr)-i-1):
             #     - Compare each element to its neighbor
             if arr[j] > arr[j+1]:
-                #     - If elements in wrong position (relative to each other, swap them)
+               #     - If elements in wrong position (relative to each other, swap them)
                 swap = True
                 arr[j], arr[j+1] = arr[j+1], arr[j]
 # 2. If no swaps performed, stop. Else, go back to the element at index 0 and repeat step 1.
@@ -46,7 +77,7 @@ def bubble_sort(arr):
 # [2, 3, 5, 6, 8] < --- our list is now ordered after adding the nested loop
 
 
-bubble_sort(arr=[5,  2,  6,  3,  8])
+#bubble_sort(arr=[5,  2,  6,  3,  8])
 
 # STRETCH: implement the Count Sort function below
 
