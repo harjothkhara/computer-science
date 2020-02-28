@@ -1,13 +1,13 @@
 import random
 # TO-DO: Complete the selection_sort() function below
-# Selection Sort -  During each iteration select the smallest item from the unsorted partition and move it to the the sorted partition. Sets the first item as the min and then cycles through the rest of the items until it finds an item less then the current min, if so it sets it to it and inputs in the correct location in the sorted part of the array.
+# Selection Sort -  in-place comparison sort. During each iteration select the smallest item from the unsorted partition and move it to the the sorted partition. Sets the first unsorted item as the min and then scan through the rest of the items until it finds a new item less then the current min, if a new min is found, we set it equal to the min variable. Once we've finished scanning for a min during the current iteration, we check if the min index was changed from i (first value in the unsorted section) with a new min, if so we swap the item at the current index(i) with the smallest element, now set to the min variable.
 # sorted |
 # initial min
-#    0      1      2     3    4
+#                0      1      2     3    4
 #         arr = [2,     3,     5,    6,   8]
 #                |      |      |     |    |
-#         i=3   ✅     ✅     ✅   #min
-#                                    ✅   ✅  j
+#         i=3    ✅    ✅     ✅    ✅  #min (last element will naturally be sorted)
+#                                         j
 # c_min_index = 3
 
 
@@ -15,17 +15,19 @@ def selection_sort(arr):
     # Start with current index = 0
     # For all indices EXCEPT the last index:
     # loop through n-1 elements or repeat num of elements -1 times
+    # after all iterations, the last element will naturally be sorted
     for i in range(0, len(arr) - 1):
         # set the first unsorted element as the min
         c_min_index = i  # tracking min index in each iteration of i
         # for each of the unsorted elements
-        # scanning values for min
+        # scanning elements to the end of list for a min
         for j in range(i+1, len(arr)):
             # if element < current min
             if arr[j] < arr[c_min_index]:
                 # finding and setting element as new min (if there is one)
                 c_min_index = j  # swapping index
         # once we've looped through j, we check if our current min index changed
+        # and swap min with first unsorted partition
         if c_min_index != i:  # swapping values
             # b. Swap the element at current index with the smallest element found in above loop
             arr[i], arr[c_min_index] = arr[c_min_index], arr[i]
@@ -45,26 +47,30 @@ randomlist = random.sample(range(7, 76), 10)
 print("selection sort")
 selection_sort(arr=[5,  2,  6,  3,  8])
 
+# time complexity(best,worst, average): n^2
+
 
 # TO-DO:  implement the Bubble Sort function below
 
-#                ✅    ✅   ✅   ✅ 
-# # index    0      1     2     3    4
-#     arr = [2,     3,    5,    6,   8]
-#     #      |      |     |     |    |- 'sorted bubbled number'
-#    i=3    j=0   j+1
+# Bubble Sort - Repeatedly steps through the list, compares adjacent elements (L > R), and swaps them if in wrong order.
 
-#    swap = False
+# #         ✅     ✅    ✅   ✅  ✅
+# # index    0      1     2    3    4
+#     arr = [2,     3,    5    6,   8]
+#     #      |      |     |     |    |- 'sorted bubbled number'
+#    i=3     j=0   j+1
+
+#    swap = True
 
 
 def bubble_sort(arr):
     # 1. Loop through your array
     # get index and loop through array -  no need to check end 'bubbled number'
-    for i in range(0, len(arr)-1):
+    for i in range(0, len(arr)-1):  # outer loop
         # print(i)  # 0, 1, 2, 3,
         # iterate through list j times for every i so we catch every unsorted item
         # -i representes the index of the last moving unsorted item in list.
-        for j in range(0, len(arr)-i-1):
+        for j in range(0, len(arr)-i-1):  # inner loop
             #     - Compare each element to its neighbor
             if arr[j] > arr[j+1]:
                #     - If elements in wrong position (relative to each other, swap them)
@@ -84,6 +90,9 @@ randomlist = random.sample(range(7, 76), 10)
 
 print("bubble sort")
 bubble_sort(arr=[5,  2,  6,  3,  8])
+
+# time complexity(best=n,worst, average): n^2
+
 
 # STRETCH: implement the Count Sort function below
 
