@@ -1,3 +1,4 @@
+import random
 # TO-DO: Complete the selection_sort() function below
 # Selection Sort -  During each iteration select the smallest item from the unsorted partition and move it to the the sorted partition. Sets the first item as the min and then cycles through the rest of the items until it finds an item less then the current min, if so it sets it to it and inputs in the correct location in the sorted part of the array.
 # sorted |
@@ -39,9 +40,11 @@ def selection_sort(arr):
     # TO-DO: swap
 
 
+randomlist = random.sample(range(7, 76), 10)
+
 print("selection sort")
 selection_sort(arr=[5,  2,  6,  3,  8])
-print("selection sort")
+
 
 # TO-DO:  implement the Bubble Sort function below
 
@@ -77,7 +80,10 @@ def bubble_sort(arr):
 # [2, 3, 5, 6, 8] < --- our list is now ordered after adding the nested loop
 
 
-#bubble_sort(arr=[5,  2,  6,  3,  8])
+randomlist = random.sample(range(7, 76), 10)
+
+print("bubble sort")
+bubble_sort(arr=[5,  2,  6,  3,  8])
 
 # STRETCH: implement the Count Sort function below
 
