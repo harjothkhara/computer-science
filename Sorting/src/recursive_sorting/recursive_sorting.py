@@ -1,9 +1,15 @@
 # Merge Sort
+def merge(arrA, arrB):
+    # merging sorted arrays backs together
+    elements = len(arrA) + len(arrB)
+
+
 def merge_sort(arr):
-  # basecase
+    # basecase
+    print(arr)
     if len(arr) == 1:
         return arr[0]
-  # logic
+    # logic
     if len(arr) > 1:
         #print(arr) [39, 51, 7, 14, 3, 86]
         pivot = round(len(arr)/2)
@@ -12,11 +18,16 @@ def merge_sort(arr):
         #print(left) [39, 51, 7]
         right = arr[pivot:]
         #print(right) [14, 3, 86]
+        # recursively run merge_sort
+        merge_sort(left)
+        merge_sort(right)
+    return arr
+
     # recursively call merge_sort() on LHS, # recursively call merge_sort() on RHS
 
 
-arr = [39, 51, 7, 14, 3, 86]
-merge_sort(arr)
+arr1 = [39, 51, 7, 14, 3, 86]
+merge_sort(arr1)
 
 # once you have gotton down to a single element, you have sorted that element.
 # a single element cannot be "out of order".
