@@ -6,9 +6,12 @@ def merge_sort(arr):
   # logic
     if len(arr) > 1:
         print(arr)
-        m = round(len(arr)/2)
+        pivot = round(len(arr)/2)
         # LHS and RHS
-        return merge_sort(arr[:m]) and merge_sort(arr[m:])
+        left = arr[:pivot]
+        print(left)
+        right = arr[pivot:]
+        print(right)
 
 
 arr = [39, 51, 7, 14, 3, 86]
