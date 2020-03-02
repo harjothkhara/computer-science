@@ -1,13 +1,13 @@
 import random
 # TO-DO: Complete the selection_sort() function below
 # Selection Sort -  in-place comparison sort. During each iteration select the smallest item from the unsorted partition and move it to the the sorted partition. Sets the first unsorted item as the min and then scan through the rest of the items until it finds a new item less then the current min, if a new min is found, we set it equal to the min variable. Once we've finished scanning for a min during the current iteration, we check if the min index was changed from i (first value in the unsorted section) with a new min, if so we swap the item at the current index(i) with the smallest element, now set to the min variable.
-# sorted |
-# initial min
-#                0      1      2     3    4
+# sorted |        ---->
+# # initial min  ✅    ✅     ✅    ✅
+# #              0      1      2     3    4
 #         arr = [2,     3,     5,    6,   8]
 #                |      |      |     |    |
-#         i=3    ✅    ✅     ✅    ✅  #min (last element will naturally be sorted)
-#                                         j
+#         i=3                       #min                            (last element will naturally be sorted)
+#                                        j=
 # c_min_index = 3
 
 
@@ -45,7 +45,7 @@ def selection_sort(arr):
 randomlist = random.sample(range(7, 76), 10)
 
 print("selection sort")
-selection_sort(arr=[5,  2,  6,  3,  8])
+selection_sort(randomlist)
 
 # time complexity(best,worst, average): n^2
 
@@ -53,14 +53,14 @@ selection_sort(arr=[5,  2,  6,  3,  8])
 # TO-DO:  implement the Bubble Sort function below
 
 # Bubble Sort - Repeatedly steps through the list, compares adjacent elements (L > R), and swaps them if in wrong order.
-
-# #         ✅     ✅    ✅   ✅  ✅
+# <--
+# # #        ✅    ✅    ✅   ✅   ✅
 # # index    0      1     2    3    4
 #     arr = [2,     3,    5    6,   8]
 #     #      |      |     |     |    |- 'sorted bubbled number'
 #    i=3     j=0   j+1
 
-#    swap = True
+#    swap = False
 
 
 def bubble_sort(arr):
@@ -89,7 +89,7 @@ def bubble_sort(arr):
 randomlist = random.sample(range(7, 76), 10)
 
 print("bubble sort")
-bubble_sort(arr=[5,  2,  6,  3,  8])
+bubble_sort(randomlist)
 
 # time complexity(best=n,worst, average): n^2
 
