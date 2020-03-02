@@ -5,17 +5,22 @@ def merge_sort(arr):
         return arr[0]
   # logic
     if len(arr) > 1:
-        print(arr)
+        #print(arr) [39, 51, 7, 14, 3, 86]
         pivot = round(len(arr)/2)
-        # LHS and RHS
+        # Divide LHS and RHS
         left = arr[:pivot]
-        print(left)
+        #print(left) [39, 51, 7]
         right = arr[pivot:]
-        print(right)
+        #print(right) [14, 3, 86]
+    # recursively call merge_sort() on LHS, # recursively call merge_sort() on RHS
 
 
 arr = [39, 51, 7, 14, 3, 86]
 merge_sort(arr)
+
+# once you have gotton down to a single element, you have sorted that element.
+# a single element cannot be "out of order".
+# once we've split and sorted the array to a single element only then do we return them to the merge function to be merged
 
 # TO-DO: complete the helpe function below to merge 2 sorted arrays
 
