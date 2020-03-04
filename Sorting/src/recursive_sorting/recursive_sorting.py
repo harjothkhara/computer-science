@@ -36,6 +36,7 @@ def merge(arrA, arrB):  # putting back together part
           # 4. B has the smaller element
             merged_arr[i] = arrB[b_i]
             b_i += 1
+    print(f" * MERGED - {merged_arr}")
     return merged_arr
 
     # a_i = 2  # a_i is the current index of arrA
@@ -69,11 +70,12 @@ def merge_sort(arr):  # spliting part
         right_arr = arr[pivot:]
         # print(right) [14, 3, 86]
         # recursively run merge_sort and sort each of the split arrays
+        # still on the callstack until it returns
         sorted_left = merge_sort(left_arr)
         sorted_right = merge_sort(right_arr)
         # merge the sorted arrays
         arr = merge(sorted_left, sorted_right)  # defined above
-    return arr
+    return arr  # basecase
 
     # recursively call merge_sort() on LHS, # recursively call merge_sort() on RHS
 
