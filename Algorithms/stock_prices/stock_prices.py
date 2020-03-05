@@ -14,7 +14,7 @@ import argparse
 #                 max_profit_so_far = current_max - current_min
 #     return max_profit_so_far
 
-# goal: max profit from a single buy and sell order
+# goal: max profit from a single buy and sell order [10, 7, 5, 8, 11, 9]
 # - find max difference between the smallest and largest prices
 # - max profit at each iteration ( buy price - sell price)
 
@@ -24,7 +24,7 @@ def find_max_profit(prices):
     # i will track buy orders
     for i in range(0, len(prices)):  # buy index
         # j will track sell orders
-        for j in range(i+i, len(prices)):  # sell index
+        for j in range(i+1, len(prices)):  # sell index
             # initialize buy and sell price
             buy_price = prices[i]
             sell_price = prices[j]
