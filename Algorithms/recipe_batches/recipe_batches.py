@@ -18,11 +18,16 @@ def recipe_batches(recipe, ingredients):
     # check how many times each ingredient can be used
     print(counts)
 
-    # see which ingredient can be used more than others
+    # see which ingredient can be used more than others by checking max value (any ingredient cycle more than others?) in counts array
+    max_batches = max(counts)
 
     # check counts array for any ingredient usable in more cycles than the other ingredients, if found, set equal to max batch
+    for count in counts:
+        if count < max_batches:
+            max_batches = count
 
     # return max batch
+    return max_batches
 
 
 recipe_batches({'milk': 100, 'butter': 50, 'cheese': 10},
