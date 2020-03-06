@@ -10,26 +10,58 @@ import sys
 # how many options can we run if we go down a certain recursive path? make sure those options are included in your recursive cases. how many ways are there to reach your basecase(0 cookies)?
 
 
+# def eating_cookies(n, cache=None):
+#     # basecase
+#     if n == 0:
+#         return 1
+
+#     total_ways = 0
+#     # cases:
+#     # cookie monster can eat all 3 cookies all at once
+#     if n >= 3:
+#         total_ways += eating_cookies(n-3)
+#     # cookie monster can eat 2 cookies, then 1 cookie
+#     if n >= 2:
+#         total_ways += eating_cookies(n-2)
+#     # cookie monster can eat 1 cookie, then 2 cookies
+#     if n >= 1:
+#         total_ways += eating_cookies(n-1)
+
+#     return total_ways
+
+# time complexity of 3^n (three recursive calls)
+
+# caching solution
+
+
 def eating_cookies(n, cache=None):
+    print(cache)
+    if cache is not None and cache[n]:
+        return cache[n]
+
     # basecase
     if n == 0:
+        if cache != None:
+            cache[n] = 1
         return 1
 
     total_ways = 0
     # cases:
     # cookie monster can eat all 3 cookies all at once
     if n >= 3:
-        total_ways += eating_cookies(n-3)
+        n_3_total = eating_cookies(n-3, cache)
+        total_ways += n_3_total
     # cookie monster can eat 2 cookies, then 1 cookie
     if n >= 2:
-        total_ways += eating_cookies(n-2)
+        total_ways += eating_cookies(n-2, cache)
     # cookie monster can eat 1 cookie, then 2 cookies
     if n >= 1:
-        total_ways += eating_cookies(n-1)
+        total_ways += eating_cookies(n-1, cache)
+
+    if cache is not None:
+        cache[n] = total_ways
 
     return total_ways
-
-# time complexity of 3^n (three recursive calls)
 
 
 if __name__ == "__main__":
