@@ -62,3 +62,6 @@ for dictionary in waypoints:
 for dictionary in waypoints:
     for keys, values in dictionary.items():  # items method returns the list with all dictionary keys and values
         print(f"both key and value {keys} {values} ")
+
+# Notes
+ # .items() - return all dict keys with values
