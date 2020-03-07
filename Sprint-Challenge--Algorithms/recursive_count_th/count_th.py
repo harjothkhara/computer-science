@@ -15,6 +15,6 @@ def count_th(word):
     if len(word) > 2:
         # removing first letter as we make our checks
         # returning count if "th" was found
-        return count_th(word[1:len(word)] + count)
+        return count_th(word[1:len(word)]) + count
     else:
         return count
