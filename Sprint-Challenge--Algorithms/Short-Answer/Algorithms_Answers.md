@@ -2,7 +2,7 @@
 
 ## Exercise I
 
-a) linear runtime of 0(n). the while loop grows n times as long as "a" (0)1 is less than n^3 which grows in proportion to n.
+a) Linear runtime of 0(n). The while loop grows n times as long as "a" (0)1 is less than n^3 which grows in proportion to n.
 
     def algo1(n):
       a = 0
@@ -14,7 +14,7 @@ a) linear runtime of 0(n). the while loop grows n times as long as "a" (0)1 is l
 
       print(f"Count: {count}\n")
 
-b) 0(nlogn). this is a nested loop which at first glance looks like 0(n^2), however the inner loop j grows at a faster rate(double) than n, which makes the while loop logn. everything within the while loop is 0(1). the outer for loop grows at n times, thus n(outerloop) \* logn(innerloop) = 0(nlogn). everything within the two loops is 0(1) and is relatively inconsequential.
+b) 0(nlogn). This is a nested loop which at first glance looks like 0(n^2), however the inner loop j grows at a faster rate(double) than n, which makes the while loop logn. Everything within the while loop is 0(1). The outer for loop grows at n times, thus n(outerloop) \* logn(innerloop) = 0(nlogn). Everything within the two loops is 0(1) and is relatively inconsequential.
 
     def algo2(n):
       total = 0
@@ -30,7 +30,7 @@ b) 0(nlogn). this is a nested loop which at first glance looks like 0(n^2), howe
 
       print(f"Count: {count}"
 
-c) 0(n). this is a recursive function that's called once and grows proportional to n, or bunnies. the base case is 0(1) and doesn't matter in the calculation of big 0, it is however, important to the recursive call as this where it is trending towards and eventually returns once the basecase is met.
+c) 0(n). This is a recursive function that's called once and grows proportional to n, or bunnies. The base case is 0(1) and doesn't matter in the calculation of big 0, it is however, important to the recursive call as this where it is trending towards and eventually returns once the base case is met.
 
     def bunnyEars(bunnies, count):
         count += 1
