@@ -99,29 +99,44 @@ class SortingRobot:
         Sort the robot's list.
         """
 
-        """
         # bubble sort implementation
-            # robot moves through item in the list comparing and swapping items along the way
-            # robot does this until list is sorted and no swapping is required
+        # robot moves through item in the list comparing and swapping items along the way
+        # robot does this until list is sorted and no swapping is required
 
         # set is_unsorted to True
+        is_unsorted = True
         # while is_sorted is True continue sorting:
+        while is_unsorted:
             # set did_swap to False
+            did_swap = False
             # while robot can move left:
+            while self.can_move_left():
                 # move robot left
+                self.move_left()
             # while robot can move right:
-                # swap items
+            while self.can_move_right():
+                # swap items (on LHS)
+                self.swap_item()
                 # move robot right
-                # compare items
+                self.move_right()
+                # compare held items with item in front
+                comparison = self.compare_item()  # (1,-1,0) greater,less,equal
                 # if comparison == 1 (held item value is greater)
+                if comparison == 1:
                     # swap items
+                    self.swap_item()
                     # set did_swap to True
+                    did_swap = True
                 # move robot left
+                self.move_left()
                 # swap items
+                self.swap_item()
                 # move robot right
-            # if did_swap is False:
+                self.move_right()
+        # if did_swap is False: (moved all the way to end without a swap)
+            if did_swap == False:
                 # set is_sorted to False (list is sorted)
-     """
+                is_unsorted = False
 
 
 if __name__ == "__main__":
