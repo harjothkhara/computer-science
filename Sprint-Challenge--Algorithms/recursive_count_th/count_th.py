@@ -7,14 +7,13 @@ Your function must utilize recursion. It cannot contain any loops.
 
 def count_th(word):
     count = 0
-    # basecase - checking for "th" occurrences
+    # checking for "th" occurrence (if at beginning of word)
     if word.startswith("th"):  # returns boolean
         count = 1
-
     # cases for recursive call
     if len(word) > 2:
         # removing first letter as we make our checks
         # returning count if "th" was found
         return count_th(word[1:len(word)]) + count
-    else:
+    else:  # basecase
         return count
