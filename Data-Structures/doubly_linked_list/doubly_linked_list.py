@@ -153,11 +153,16 @@ class DoublyLinkedList:
 
 # instance of class
 our_dll = DoublyLinkedList()
+print(our_dll)
 # running class method
 our_dll.add_to_head(5)
+print(our_dll)
 our_dll.add_to_head(3)
+print(our_dll)
 our_dll.add_to_head(7)
+print(our_dll)
 our_dll.add_to_head(8)
+print(our_dll)
 our_dll.add_to_tail(1)
 print(our_dll)
 removed_val = our_dll.remove_from_head()
