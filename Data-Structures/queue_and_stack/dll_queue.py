@@ -21,12 +21,13 @@ class Queue:
     # remove and return an item from the front of the queue (tail ->)
     def dequeue(self):
         # check if there is anyone in the queue
-        if self.len() == 0:
-            return None
+        if self.size == 0:
+            return
         # decrement size when an a queue item is removed
-        self.size -= 1
+        else:
+            self.size -= 1
         # invoke remove_from_head from DLL class that returns removed value
-        self.storage.remove_from_head()
+            return self.storage.remove_from_head()
 
     # return the number of items in the queue
     def len(self):
