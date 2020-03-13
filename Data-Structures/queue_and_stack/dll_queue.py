@@ -15,17 +15,17 @@ class Queue:
     def enqueue(self, value):
         # increment size when a new item is added
         self.size += 1
-        # invoke add_to_head method from DLL class
+        # invoke add_to_tail method from DLL class
         self.storage.add_to_tail(value)
 
     # remove and return an item from the front of the queue (tail ->)
     def dequeue(self):
-        # check if there are any items to remove
+        # check if there is anyone in the queue
         if self.len() == 0:
             return None
-        # decrement size when an item is removed
+        # decrement size when an a queue item is removed
         self.size -= 1
-        # invoke remove_from_tail from DLL class that returns removed value
+        # invoke remove_from_head from DLL class that returns removed value
         self.storage.remove_from_head()
 
     # return the number of items in the queue

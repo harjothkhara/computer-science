@@ -1,5 +1,5 @@
-from doubly_linked_list import DoublyLinkedList
 import sys
+from doubly_linked_list import DoublyLinkedList
 sys.path.append('../doubly_linked_list')
 
 
