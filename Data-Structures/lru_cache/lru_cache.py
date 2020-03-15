@@ -28,7 +28,7 @@ class LRUCache:
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
-    such that the pair is considered most-recently used (front)
+    such that the pair is considered most-recently used (MRU - front)
     Returns the value associated with the key or None if the
     key-value pair doesn't exist in the cache.
     """
@@ -38,8 +38,11 @@ class LRUCache:
         if key in self.storage:
             # return the value and move to front
             node = self.storage[key]
+            # move the key-value pair to the end of the order (MRU)
             self.dll.move_to_end(node)
+            # return value associated with the key
             return node.value[1]
+        # or return None if key-value pair doesn't exist in cache
         else:
             return None
 
