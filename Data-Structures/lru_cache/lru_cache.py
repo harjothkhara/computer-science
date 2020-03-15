@@ -28,14 +28,20 @@ class LRUCache:
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
-    such that the pair is considered most-recently used.
+    such that the pair is considered most-recently used (front)
     Returns the value associated with the key or None if the
     key-value pair doesn't exist in the cache.
     """
+# Retrieve a node with the matching key to the front
 
     def get(self, key):
-        pass
-
+        if key in self.storage:
+            # return the value and move to front
+            node = self.storage[key]
+            self.dll.move_to_end(node)
+            return node.value[1]
+        else:
+            return None
 
 # set operation on our cache to add key-value pairs to the cache. Lowest priority pair will get removed from the cache if the cache is already at its max capacity. If key already exists in cache, we overwrite the old value associated with the key the new value.
     """
