@@ -1,3 +1,7 @@
+from doubly_linked_list import DoublyLinkedList
+import sys
+sys.path.append('../doubly_linked_list')
+
 # Least Recently Used Strategy - the oldest entry (the one that was added/updated the longest time ago) is removed to make space for the new entry. Resource: https://www.interviewcake.com/concept/java/lru-cache
 
 # Using a DLL (Doubly Linked List) data structure with the most recently used item at the head and the least recently used item at the tail - O(1) operation. Traversing and accessing an item in the linked list will be O(n) since we need to walk through the whole list.
@@ -13,7 +17,11 @@ class LRUCache:
     """
 
     def __init__(self, limit=10):
-        pass
+        self.limit = limit  # max # of nodes held
+        self.size = 0  # current # of nodes holding
+        self.dll = DoublyLinkedList()  # holding key/value entries in the correct order
+        # storage dict that provides fast access to every node stored in the cache
+        self.storage = {}
 
 
 # fetches a value given a key. when a key-value is fetched from the cache, we'll go through the same priority increase dance that also happens when a new pair is added to the cache
