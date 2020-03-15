@@ -1,3 +1,8 @@
+# Least Recently Used Strategy - the oldest entry (the one that was added/updated the longest time ago) is removed to make space for the new entry. Resource: https://www.interviewcake.com/concept/java/lru-cache
+
+# Using a DLL (Doubly Linked List) data structure with the most recently used item at the head and the least recently used item at the tail - O(1) operation. Traversing and accessing an item in the linked list will be O(n) since we need to walk through the whole list.
+
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -6,9 +11,12 @@ class LRUCache:
     order, as well as a storage dict that provides fast access
     to every node stored in the cache.
     """
+
     def __init__(self, limit=10):
         pass
 
+
+# fetches a value given a key. when a key-value is fetched from the cache, we'll go through the same priority increase dance that also happens when a new pair is added to the cache
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
@@ -16,9 +24,12 @@ class LRUCache:
     Returns the value associated with the key or None if the
     key-value pair doesn't exist in the cache.
     """
+
     def get(self, key):
         pass
 
+
+# set operation on our cache to add key-value pairs to the cache. Lowest priority pair will get removed from the cache if the cache is already at its max capacity. If key already exists in cache, we overwrite the old value associated with the key the new value.
     """
     Adds the given key-value pair to the cache. The newly-
     added pair should be considered the most-recently used
@@ -29,5 +40,6 @@ class LRUCache:
     want to overwrite the old value associated with the key with
     the newly-specified value.
     """
+
     def set(self, key, value):
         pass
