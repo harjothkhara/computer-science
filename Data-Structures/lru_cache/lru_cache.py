@@ -18,7 +18,7 @@ class LRUCache:
         self.limit = limit  # max # of nodes held
         self.size = 0  # current # of nodes holding
         self.dll = DoublyLinkedList()  # holding key/value entries in the correct order
-        # storage dict that provides fast access to every node stored in the cache
+        # storage dict that provides fast access to every node stored in the cache. grab node from anywhere 0(1)!
         self.storage = {}
 
 
@@ -33,15 +33,17 @@ class LRUCache:
 # Retrieve a node with the matching key to the front
 
     def get(self, key):
+        # if key is in storage
         if key in self.storage:
             # return the value and move to front
-            node = self.storage[key]
+            node = self.storage[key]  # helper
             # move the key-value pair to the end of the order (MRU)
             self.dll.move_to_end(node)
             # return value associated with the key
-            return node.value[1]
-        # or return None if key-value pair doesn't exist in cache
+            return node.value[1]  # remember node value is in key:value tuple!
+        # if not
         else:
+            # key-value pair doesn't exist in cache
             return None
 
 # set operation on our cache to add key-value pairs to the cache. Lowest priority pair will get removed from the cache if the cache is already at its max capacity. If key already exists in cache, we overwrite the old value associated with the key the new value.
@@ -56,46 +58,58 @@ class LRUCache:
     the newly-specified value.
     """
 
-    def set(self, key, value):
-        # check if key already exists
-        if key in self.storage:
-            node = self.storage[key]
-            node.value = (key, value)
-            # moving most-recently used entry in the cache to the end
-            return self.dll.move_to_end(node)
-        # if cache is at max capacity then oldest entry needs to be removed
-        elif self.size == self.limit:
-            # if at size limit remove LRU from cache
-            del self.storage[self.dll.head.value[0]]
-            # and from DLL - similar to pop method
-            self.dll.remove_from_head()
-            #  decrease the size of the list
-            self.size -= 1
-        # if key already exists in the cache, we simply
-        # want to overwrite the old value associated with the key with
-        # the newly-specified value.
-        self.dll.add_to_tail((key, value))
-        # store item in dict with key
-        self.storage[key] = self.dll.tail
-        # increase size
-        self.size += 1
-    """
+    # def set(self, key, value):
+    #     # check if key already exists
+    #     if key in self.storage:
+    #         node = self.storage[key]
+    #         node.value = (key, value)
+    #         # moving most-recently used entry in the cache to the end
+    #         return self.dll.move_to_end(node)
+    #     # if cache is at max capacity then oldest entry needs to be removed
+    #     elif self.size == self.limit:
+    #         # if at size limit remove LRU from cache
+    #         del self.storage[self.dll.head.value[0]]
+    #         # and from DLL - similar to pop method
+    #         self.dll.remove_from_head()
+    #         #  decrease the size of the list
+    #         self.size -= 1
+    #     # if key already exists in the cache, we simply
+    #     # want to overwrite the old value associated with the key with
+    #     # the newly-specified value.
+    #     self.dll.add_to_tail((key, value))
+    #     # store item in dict with key
+    #     self.storage[key] = self.dll.tail
+    #     # increase size
+    #     self.size += 1
+
     # Set Operation Plan
+    def set(self, key, value):
         # If cache not empty:
-            # check and see if the key is in the dict (if dict empty key won't be there)
-                # If it is
-                    # overwrite the value
-                    # move it to the end
-                # If it isn't
-                    # check and see if cache is full
-                        # if cache is not full
-                            # same as if cache is empty
-                        # if cache is full
-                            # remove oldest entry from dict and LL
-                            # reduce the size
-                            # same as if cache is empty
+        # check and see if the key is in the dict (if dict empty key won't be there)
+        if key in self.storage:
+            # If it is (and key is in dict)
+            node = self.storage[key]
+            # overwrite the value
+            node.value = (key, value)
+            # move it to the end (tail) using dll method - now it becomes a MRU
+            self.dll.move_to_end(node)
+            # nothing else to do, so exit function
+            return
+        # If it isn't (and key is not in dict)
+        # check and see if cache is full
+            # cache is full
+        if self.size == self.limit:
+            # remove oldest entry from dict -- storage[key]. see line 91
+            del self.storage[self.dll.head.value[0]]
+            # and LL
+            self.dll.remove_from_head()
+            # reduce the size
+            self.size -= 1
+
         # If the cache is empty:
-            # Add to the LL (key, value)
-            # Add the key and value to the dictionary
-            # increment size
-"""
+        # Add new entry to the LL (key, value)
+        self.dll.add_to_tail((key, value))
+        # Add new entry as key and value to the dictionary
+        self.storage[key] = self.dll.tail
+        # increment size
+        self.size += 1
