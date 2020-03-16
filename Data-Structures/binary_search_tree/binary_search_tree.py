@@ -1,11 +1,11 @@
+from dll_stack import Stack
+from dll_queue import Queue
 import sys
 sys.path.append('../queue_and_stack')
-from dll_queue import Queue
-from dll_stack import Stack
 
 
-class BinarySearchTree:
-    def __init__(self, value):
+class BinarySearchTree:  # a single node is a tree
+    def __init__(self, value):  # similar to LL/DLL
         self.value = value
         self.left = None
         self.right = None
