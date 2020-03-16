@@ -1,6 +1,4 @@
 from doubly_linked_list import DoublyLinkedList
-import sys
-sys.path.append('../doubly_linked_list')
 
 # Least Recently Used Strategy - the oldest entry (the one that was added/updated the longest time ago) is removed to make space for the new entry. Resource: https://www.interviewcake.com/concept/java/lru-cache
 
@@ -81,3 +79,23 @@ class LRUCache:
         self.storage[key] = self.dll.tail
         # increase size
         self.size += 1
+    """
+    # Set Operation Plan
+        # If cache not empty:
+            # check and see if the key is in the dict (if dict empty key won't be there)
+                # If it is
+                    # overwrite the value
+                    # move it to the end
+                # If it isn't
+                    # check and see if cache is full
+                        # if cache is not full
+                            # same as if cache is empty
+                        # if cache is full
+                            # remove oldest entry from dict and LL
+                            # reduce the size
+                            # same as if cache is empty
+        # If the cache is empty:
+            # Add to the LL (key, value)
+            # Add the key and value to the dictionary
+            # increment size
+"""
