@@ -59,4 +59,25 @@ class LRUCache:
     """
 
     def set(self, key, value):
-        pass
+        # check if key already exists
+        if key in self.storage:
+            node = self.storage[key]
+            node.value = (key, value)
+            # moving most-recently used entry in the cache to the end
+            return self.dll.move_to_end(node)
+        # if cache is at max capacity then oldest entry needs to be removed
+        elif self.size == self.limit:
+            # if at size limit remove LRU from cache
+            del self.storage[self.dll.head.value[0]]
+            # and from DLL - similar to pop method
+            self.dll.remove_from_head()
+            #  decrease the size of the list
+            self.size -= 1
+        # if key already exists in the cache, we simply
+        # want to overwrite the old value associated with the key with
+        # the newly-specified value.
+        self.dll.add_to_tail((key, value))
+        # store item in dict with key
+        self.storage[key] = self.dll.tail
+        # increase size
+        self.size += 1

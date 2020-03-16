@@ -9,6 +9,15 @@ class ListNode:
         self.prev = prev
         self.next = next
 
+    """Rearranges this ListNode's previous and next pointers
+    accordingly, effectively deleting this ListNode."""
+
+    def delete(self):
+        if self.prev:
+            self.prev.next = self.next
+        if self.next:
+            self.next.prev = self.prev
+
 
 """Our doubly-linked list class. It holds references to
 the list's head and tail nodes."""
