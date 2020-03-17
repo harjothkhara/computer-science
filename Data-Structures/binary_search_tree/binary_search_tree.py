@@ -1,26 +1,36 @@
-from dll_stack import Stack
-from dll_queue import Queue
-import sys
-sys.path.append('../queue_and_stack')
+# from dll_stack import Stack
+# from dll_queue import Queue
+# import sys
+# sys.path.append('../queue_and_stack')
 
 # solvable without having reference to the parent
 
 
 class BinarySearchTree:  # a single node is a tree
     def __init__(self, value):  # similar to LL/DLL
-        self.value = value
-        self.left = None
-        self.right = None
+        self.value = value  # root at each given node
+        self.left = None  # left side at each given node
+        self.right = None  # right side at each given node
 
     # Insert the given value into the tree
     def insert(self, value):
-        # comapre value to the current node
-        # if smaller, go left
-        # if bigger, go right
-
-        # if no node to go to, (either left or right)
-            # make the new node at that spot
-        pass
+        # compare the root value to the new value being added
+        # if the value is less than the root, move left
+        if value < self.value:
+            # if no child on that side insert
+            if self.left is None:
+                self.left = BinarySearchTree(value)
+            # else keep moving left and call insert method again (on left) and do the check again until no child, and you can insert value to the tree
+            else:
+                self.left.insert(value)
+        # if the value is greater than the root, move right
+        elif value >= self.value:
+            # if no child on that side insert
+            if self.right is None:
+                self.right = BinarySearchTree(value)
+            # else keep moving right and call insert method again (on right) and do the check again until no child, and you can insert value to the tree
+            else:
+                self.right.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
@@ -67,3 +77,8 @@ class BinarySearchTree:  # a single node is a tree
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
+
+root = BinarySearchTree(5)
+root.insert(5)
+root.insert(10)
