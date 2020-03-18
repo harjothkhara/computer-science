@@ -19,7 +19,8 @@ class BinarySearchTree:  # a single node is a tree
         if value < self.value:
             # if no child on that side insert
             if self.left is None:
-                self.left = BinarySearchTree(value)
+                 # creating a new class instance
+                self.left = BinarySearchTree(value)  # a single node is a tree
             # else keep moving left and call insert method again (on left) and do the check again until no child, and you can insert value to the tree
             else:
                 self.left.insert(value)
@@ -27,7 +28,8 @@ class BinarySearchTree:  # a single node is a tree
         elif value >= self.value:
             # if no child on that side insert
             if self.right is None:
-                self.right = BinarySearchTree(value)
+                # creating a new class instance
+                self.right = BinarySearchTree(value)  # a single node is a tree
             # else keep moving right and call insert method again (on right) and do the check again until no child, and you can insert value to the tree
             else:
                 self.right.insert(value)
@@ -52,7 +54,7 @@ class BinarySearchTree:  # a single node is a tree
                 return self.right.contains(target)
             else:
                 return False
-        # if the target equals the value return True
+        # if the target equals the value return True - basecase
         elif target == self.value:
             return True
 
@@ -66,10 +68,23 @@ class BinarySearchTree:  # a single node is a tree
             # return max value if no pointer to next node exists (self.right === None)
             return self.value
 
-    # Call the function `cb` on the value of each node
+    # Call the function `cb` on the value of each node.
+    # fyi - cb function is defined in test - adding random ints to an array
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        # call cb function on self.value, each node value
+        cb(self.value)
+        # traversing BST on every branch until there are no more nodes on left/right
+        # if left
+        if self.left is not None:
+            # call for_each function
+            # no return, not returning a recursive value at each stack but executing a function
+            self.left.for_each(cb)
+        # if right
+        if self.right is not None:
+            # call for each function
+            # no return, not returning a recursive value at each stack but executing a function
+            self.right.for_each(cb)
 
     # DAY 2 Project -----------------------
 
