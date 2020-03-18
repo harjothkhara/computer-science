@@ -57,9 +57,14 @@ class BinarySearchTree:  # a single node is a tree
             return True
 
     # Return the maximum value found in the tree
-
+    # max node found on last leaf on right side of tree
     def get_max(self):
-        pass
+        if self.right is not None:
+            # recurse right if value exists
+            return self.right.get_max()
+        else:
+            # return max value if no pointer to next node exists (self.right === None)
+            return self.value
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
