@@ -1,6 +1,6 @@
 from doubly_linked_list import DoublyLinkedList
 
-# Least Recently Used Strategy - the oldest entry (the one that was added/updated the longest time ago) is removed to make space for the new entry. Resource: https://www.interviewcake.com/concept/java/lru-cache
+# Least Recently Used Strategy - the oldest entry (the one that was added/updated the longest time ago) is removed to make space for the new entry. Resource: https://www.interviewcake.com/concept/java/lru-cache, https://www.youtube.com/watch?v=S6IfqDXWa10&t=528s
 
 # Using a DLL (Doubly Linked List) data structure with the most recently used item at the head and the least recently used item at the tail - O(1) operation. Traversing and accessing an item in the linked list will be O(n) since we need to walk through the whole list.
 
@@ -19,7 +19,7 @@ class LRUCache:
         self.size = 0  # current # of nodes holding
         self.dll = DoublyLinkedList()  # holding key/value entries in the correct order
         # storage dict that provides fast access to every node stored in the cache. grab node from anywhere 0(1)!
-        self.storage = {}
+        self.storage = {}  # cache
 
 
 # fetches a value given a key. when a key-value is fetched from the cache, we'll go through the same priority increase dance that also happens when a new pair is added to the cache
@@ -113,3 +113,4 @@ class LRUCache:
         self.storage[key] = self.dll.tail
         # increment size
         self.size += 1
+        print(self.storage)
