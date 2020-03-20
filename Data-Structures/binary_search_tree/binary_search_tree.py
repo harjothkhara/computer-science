@@ -88,21 +88,23 @@ class BinarySearchTree:  # a single node is a tree
 
     # DAY 2 Project -----------------------
 
-        # Depth First Traversal(DFT)
+        # Depth First Traversal(DFT) - travel forward on each branch until a deadend is reached. this continues until all nodes have been visited. we can do this iteratively or recursively. this iterative approach takes use of stack.
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
+    # DFT - recursive approach
+    # going down each branch and printing in order (smallest -> biggest)
+    def in_order_print(self, node=None):
+        # traverse through BST on every branch until there are not more nodes at left/right
+        # go left FIRST (we want the smallest number in our tree first)
+        if self.left is not None:  # we recurse all the way left to find it
+            self.left.in_order_print()
 
-    def in_order_print(self, node):
-        # go left FIRST
-        if node.left is not None:
-            node.in_order_print(node.left)
+        # print ourselves (once smallest value on tree is found, we print)
+        print(self.value)
 
-        # print ourselves
-        print(node.value)
-
-        # go right
-        if node.right is not None:
-            node.in_order_print(node.right)
+        # go right (go right on the smallest branch to find the next order)
+        if self.right is not None:
+            self.right.in_order_print()
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
@@ -112,6 +114,7 @@ class BinarySearchTree:  # a single node is a tree
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
+    # DFT - iterative approach
     def dft_print(self, node=None):
         # intializa a stack
         storage = Stack()  # FIFO
@@ -122,12 +125,12 @@ class BinarySearchTree:  # a single node is a tree
         while storage.len() > 0:
             # pop top item out of stack into a temp
             node = storage.pop()
-        # DO THE THING (print)
+            # DO THE THING (print)
             print(node.value)
-        # if temp has a right push into stack
+            # if temp has a right push into stack
             if node.right:
                 storage.push(node.right)
-        # if temp has a left push into stack
+            # if temp has a left push into stack
             if node.left:
                 storage.push(node.left)
 
@@ -153,4 +156,6 @@ bst.insert(3)
 bst.insert(4)
 bst.insert(2)
 
-bst.dft_print(print)
+bst.in_order_print(print)
+
+# bst.dft_print(print)
