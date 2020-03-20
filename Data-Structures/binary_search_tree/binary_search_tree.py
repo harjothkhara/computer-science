@@ -109,15 +109,30 @@ class BinarySearchTree:  # a single node is a tree
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        # create
-        pass
+          # intializa a queue
+        storage = Queue()  # FIFO
+        # push root to queue
+        storage.enqueue(self)
+
+        # while stack not empty
+        while storage.len() > 0:
+            # pop top item out of queue into a temp
+            node = storage.dequeue()
+            # DO THE THING (print)
+            print(node.value)
+            # if temp has a right add item to back of queue
+            if node.right:
+                storage.enqueue(node.right)
+            # if temp has a left add item to back of queue
+            if node.left:
+                storage.enqueue(node.left)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     # DFT - iterative approach
     def dft_print(self, node=None):
         # intializa a stack
-        storage = Stack()  # FIFO
+        storage = Stack()  # LIFO
         # push root to stack
         storage.push(self)
 
@@ -156,6 +171,8 @@ bst.insert(3)
 bst.insert(4)
 bst.insert(2)
 
-bst.in_order_print(print)
+# bst.in_order_print(print)
 
 # bst.dft_print(print)
+
+bst.bft_print(print)
