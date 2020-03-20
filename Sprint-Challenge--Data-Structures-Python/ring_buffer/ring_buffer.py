@@ -10,13 +10,30 @@ class RingBuffer:
         self.storage = DoublyLinkedList()  # cache
 
     def append(self, item):  # adds elements to the buffer
-       # check if length of storage is zero
-
+       # check if length of storage is zero and add to list
+        if len(self.storage) == 0:
+            # if it is set new item to head
+            self.storage.add_to_head(item)
+            # set current to head
+            self.current = self.storage.head
        # length of storage list is less than capacity
-            # add new item to the tail of list
-
+        elif len(self.storage) < self.capacity:
+            # add new item to end of list (tail)
+            self.storage.add_to_tail(item)
        # storage list is at capacity
+        elif len(self.storage) == self.capacity:
          # check if self.current.next is None
+            if self.current.next:
+                # replace value of current(oldest item) with new item
+                self.current.value = item
+                # increment the current item to next node(new oldest item)
+                self.current = self.current.next
+            # else if self.current.next is not None
+            else:
+                # replace value of current with new item
+                self.current.value = item
+                # increment the current item back to beginning of list
+                self.current = self.storage.head
 
     def get(self):
         # returns all the elements in the buffer in a list in their given order
@@ -27,7 +44,6 @@ class RingBuffer:
         # TODO: Your code here
 
         return list_buffer_contents
-
 
 
 # ----------------Stretch Goal-------------------
