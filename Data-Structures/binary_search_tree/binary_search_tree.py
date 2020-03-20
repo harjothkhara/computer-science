@@ -1,5 +1,5 @@
-# from dll_stack import Stack
-# from dll_queue import Queue
+from dll_stack import Stack
+from dll_queue import Queue
 # import sys
 # sys.path.append('../queue_and_stack')
 
@@ -88,25 +88,54 @@ class BinarySearchTree:  # a single node is a tree
 
     # DAY 2 Project -----------------------
 
+        # Depth First Traversal(DFT)
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
+
     def in_order_print(self, node):
-        pass
+        # go left FIRST
+        if node.left is not None:
+            node.in_order_print(node.left)
+
+        # print ourselves
+        print(node.value)
+
+        # go right
+        if node.right is not None:
+            node.in_order_print(node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
+        # create
         pass
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
-    def dft_print(self, node):
-        pass
+    def dft_print(self, node=None):
+        # intializa a stack
+        storage = Stack()  # FIFO
+        # push root to stack
+        storage.push(self)
 
-    # STRETCH Goals -------------------------
-    # Note: Research may be required
+        # while stack not empty
+        while storage.len() > 0:
+            # pop top item out of stack into a temp
+            node = storage.pop()
+        # DO THE THING (print)
+            print(node.value)
+        # if temp has a right push into stack
+            if node.right:
+                storage.push(node.right)
+        # if temp has a left push into stack
+            if node.left:
+                storage.push(node.left)
 
-    # Print Pre-order recursive DFT
+        # STRETCH Goals -------------------------
+        # Note: Research may be required
+
+        # Print Pre-order recursive DFT
+
     def pre_order_dft(self, node):
         pass
 
@@ -115,6 +144,13 @@ class BinarySearchTree:  # a single node is a tree
         pass
 
 
-root = BinarySearchTree(5)
-root.insert(5)
-root.insert(10)
+bst = BinarySearchTree(1)
+bst.insert(8)
+bst.insert(5)
+bst.insert(7)
+bst.insert(6)
+bst.insert(3)
+bst.insert(4)
+bst.insert(2)
+
+bst.dft_print(print)
