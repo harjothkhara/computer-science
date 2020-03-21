@@ -52,6 +52,22 @@ class RingBuffer:
         return list_buffer_contents
 
 
+ring = RingBuffer(4)
+ring.append('a')
+ring.append('b')
+ring.append('c')
+ring.append('d')
+ring.append('e')  # overrite 'a'
+ring.append('f')  # overrite 'b'
+ring.append('g')  # overrite 'c'
+ring.append('h')  # overrite 'c'
+
+ring.append('i')  # overrite 'e'
+ring.append('j')  # overrite 'f'
+
+
+print(ring.get())
+
 # ----------------Stretch Goal-------------------
 
 
