@@ -49,7 +49,7 @@ class LinkedList:
         # start at beginning of LL
         current = self.head
         while(current):
-            # store self.head.next_node as next move
+            # store self.head.next_node as next move otherwise we will lose its original next when we increment current over.
             next_move = current.next_node
             # set the next node to prev
             current.next_node = prev
