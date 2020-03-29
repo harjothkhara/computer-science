@@ -21,6 +21,7 @@ class LinkedList:
         # reference to the head of the list
         self.head = None
 
+    # when we add a new node a next pointer is added to it and it becomes the head
     def add_to_head(self, value):
         node = Node(value)
         if self.head is not None:
