@@ -72,3 +72,7 @@ print(ll.head.get_value())
 ll.reverse_list()
 
 print(ll.head.get_value())
+
+
+# Referenced Resources
+# https://dev.to/akhilpokle/reverse-a-linked-list-2n0d
