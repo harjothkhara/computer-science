@@ -7,9 +7,10 @@ class RingBuffer:
     def __init__(self, capacity):
         self.capacity = capacity  # limit
         self.current = None
-        self.storage = DoublyLinkedList()  # cache
+        self.storage = DoublyLinkedList()  # LL data structure
 
-    def append(self, item):  # adds elements to the buffer
+    # adds elements to the buffer
+    def append(self, item):
        # check if length of storage is zero and add to list
         if len(self.storage) == 0:
             # if it is set new item to head
@@ -22,13 +23,14 @@ class RingBuffer:
             self.storage.add_to_tail(item)
        # storage list is at capacity
         elif len(self.storage) == self.capacity:
-         # check if self.current.next is None
+         # check if self.current.next is not None, i.e node has a next value
+            # if self.current.next is not None
             if self.current.next:
                 # replace value of current(oldest item) with new item
                 self.current.value = item
                 # increment the current item to next node(new oldest item)
                 self.current = self.current.next
-            # else if self.current.next is not None
+            #  if self.current.next is None, i.e current is at end of list, no next value
             else:
                 # replace value of current with new item
                 self.current.value = item
@@ -52,7 +54,7 @@ class RingBuffer:
         return list_buffer_contents
 
 
-ring = RingBuffer(4)
+ring = RingBuffer(4)  # capacity
 ring.append('a')
 ring.append('b')
 ring.append('c')
@@ -60,7 +62,7 @@ ring.append('d')
 ring.append('e')  # overrite 'a'
 ring.append('f')  # overrite 'b'
 ring.append('g')  # overrite 'c'
-ring.append('h')  # overrite 'c'
+ring.append('h')  # overrite 'd' - self.current.next = None
 
 ring.append('i')  # overrite 'e'
 ring.append('j')  # overrite 'f'
