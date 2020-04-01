@@ -50,8 +50,10 @@ class RingBuffer:
         # start at beginning of list
         node = self.storage.head
 
-        while(node):
+        while(node):  # until node = None (end of list)
+            # The append() method in python adds a single item to the existing list.
             list_buffer_contents.append(node.value)
+            # point to next node in the list until next is None(at the end of list) at which point you exit and return list (line 58)
             node = node.next
         return list_buffer_contents
 
