@@ -30,15 +30,15 @@ duplicates = []  # Return the list of duplicates in this data structure
 
 # this solution ^^ is 0(n^2) for each entry in name_1 your also looping through each entry in name_2. # runtime: 6.446194887161255 seconds
 
-# optimized solution  below os 0(n) - looping once through each name/node(names_1) in the tree and list(names_2)  runtime: 0.11794686317443848 seconds
+# optimized solution  below os o(n)(logn) - looping once through each name/node(names_1 - 0(n)) in the bst (names_2 - logn)  runtime: 0.11794686317443848 seconds
 
-# inserting names_1 list into bst
+# inserting names_1 list into bst (logn)
 bst = BinarySearchTree(names_1[0])  # adding first name in tree
 for i in range(1, len(names_1)):  # looping though remaining names and inserting into bst
     bst.insert(names_1[i])
 
 # loop through each name in names_2 list and see if there's duplicates in the names_1 bst tree
-for name in names_2:
+for name in names_2:  # o(n)
     # check if bst contains duplicates by using contains method on bst class
     # if target name from names_2 is in tree then return true and append
     if bst.contains(name):
