@@ -9,6 +9,9 @@ class LinkedPair:
         self.value = value
         self.next = None
 
+    def __repr(self):
+        return f"<{self.key}, {self.value}>"
+
 
 class HashTable:
     '''
@@ -58,11 +61,18 @@ class HashTable:
         index = self._hash_mod(key)
 
         # check if a key:value pair already exists in the index(bucket)
-        # if so, overwrite the key/value and throw a warning
-        # if not, created a new LinkedPair and place it in the bucket
+        pair = self.storage[index]
+        if pair is not None:
+            # if so, overwrite the key/value and throw a warning
+            if pair.key != key:
+                print("Warning: Overwriting value")
+                pair.key = key
+            pair.value = value
+            # if not, created a new LinkedPair and place it in the bucket
+            self.storage[index] = LinkedPair(key, value)
 
         # printing the index, key (pre-hash), and the value to store
-        print(f"Insert({index}, {key}, {value})")
+        # print(f"Insert({index}, {key}, {value}, {pair})")
 
     def remove(self, key):
         '''
@@ -85,17 +95,12 @@ class HashTable:
 
         Fill this in.
         '''
-        # hash the key
+        # get the index from hashmod
         index = self._hash_mod(key)
-        # for debugging
-        print(f"Retrive({index},{key})")
 
-        # defined output range check
-        if index < len(self.storage):
-            # arr retrieval by index
-            return self.storage[index]
-        else:
-            return None
+        # check if a pair exists in the bucket with matching keys
+        # if so, return value
+        # else, return None
 
     def resize(self):
         '''
@@ -113,6 +118,8 @@ if __name__ == "__main__":
     ht.insert("line_1", "Tiny hash table")
     # ht.insert("line_2", "Filled beyond capacity")
     # ht.insert("line_3", "Linked list saves the day!")
+
+    print(ht.storage)
 
     print("")
 
