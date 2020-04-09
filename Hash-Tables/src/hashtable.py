@@ -54,12 +54,15 @@ class HashTable:
 
         Fill this in.
         '''
-        # hash the key - array index is produced by the hash function inside hash_mod
+        # hashmod the key to find the index
         index = self._hash_mod(key)
+
+        # check if a key:value pair already exists in the index(bucket)
+        # if so, overwrite the key/value and throw a warning
+        # if not, created a new LinkedPair and place it in the bucket
+
         # printing the index, key (pre-hash), and the value to store
         print(f"Insert({index}, {key}, {value})")
-        # setting arr index(hashed key) to bucket value
-        self.storage[index] = value
 
     def remove(self, key):
         '''
