@@ -9,7 +9,7 @@ class LinkedPair:
         self.value = value
         self.next = None
 
-    def __repr(self):
+    def __repr__(self):
         return f"<{self.key}, {self.value}>"
 
 
@@ -59,15 +59,18 @@ class HashTable:
         '''
         # hashmod the key to find the index
         index = self._hash_mod(key)
+        # storing our target bucket where we want to insert
+        pair = self.storage[index]
 
         # check if a key:value pair already exists in the index(bucket)
-        pair = self.storage[index]
         if pair is not None:
             # if so, overwrite the key/value and throw a warning
-            if pair.key != key:
-                print("Warning: Overwriting value")
+            if pair.key != key:  # hash('pear') % 16 != hash('apple') % 16
+                # collision = two keys hash to the same index
+                print("Warning: Collision detected. Overwriting existing value!")
                 pair.key = key
             pair.value = value
+        else:
             # if not, created a new LinkedPair and place it in the bucket
             self.storage[index] = LinkedPair(key, value)
 
@@ -82,10 +85,16 @@ class HashTable:
 
         Fill this in.
         '''
-        # if index is not in arr (self.storage)
-        # return
-        # else
-        # del index(hashed key) bucket(value)
+
+        # hashmod the key to find the index
+        index = self._hash_mod(key)
+        # check if a target exists in the bucket with matching keys
+        if self.storage[index] is not None and self.storage[index].key == key:
+            # if so, remove that target
+            self.storage[index] = None
+        else:
+            # else, print warning
+            print("Warning: Key does not exist")
 
     def retrieve(self, key):
         '''
@@ -97,10 +106,15 @@ class HashTable:
         '''
         # get the index from hashmod
         index = self._hash_mod(key)
-
-        # check if a pair exists in the bucket with matching keys
-        # if so, return value
-        # else, return None
+        # retrieving our target bucket
+        target = self.storage[index]
+        # check if a target exists in the bucket with matching keys
+        if target is not None and target.key == key:
+            # if so, return value
+            return target.value
+        else:
+            # else, return None
+            return None
 
     def resize(self):
         '''
@@ -109,25 +123,31 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # create a new array size * 2
+        # move all values over
+        # remove old array
 
 
 if __name__ == "__main__":
     ht = HashTable(2)  # hash table of size 2
-    # adding 3 items, guaranteed collision:
-    ht.insert("line_1", "Tiny hash table")
-    # ht.insert("line_2", "Filled beyond capacity")
-    # ht.insert("line_3", "Linked list saves the day!")
-
     print(ht.storage)
-
+    print("")
+    # adding 3 items, guaranteed collision:
+    ht.insert("apple", "delicious")
+    ht.insert("pear", "not delicious")
+    # ht.insert("line_3", "Linked list saves the day!")
+    print(ht.storage)
     print("")
 
     # Test storing beyond capacity
-    print(ht.retrieve("line_1"))
+    print(ht.retrieve("apple"))
     # print(ht.retrieve("line_2"))
     # print(ht.retrieve("line_3"))
+    print("")
 
+    # Test removal
+    ht.remove("apple")
+    print(ht.storage)
     # Test resizing
     # old_capacity = len(ht.storage)
     # ht.resize()
