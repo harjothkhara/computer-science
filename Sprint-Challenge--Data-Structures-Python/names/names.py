@@ -16,8 +16,10 @@ f = open('names_2.txt', 'r')
 names_2 = f.read().split("\n")  # List containing 10000 names
 f.close()
 
-duplicates = []  # Return the list of duplicates in this data structure
+# using hash sets to make even faster 0(1) and better than bst(logn)
+names_set = set(names_2)
 
+duplicates = []  # Return the list of duplicates in this data structure
 # Replace the nested for loops below with your improvements
 # for name_1 in names_1:
 #     for name_2 in names_2:
@@ -45,6 +47,11 @@ for name in names_2:  # o(n)
         duplicates.append(name)
 
 # bst is optimized for searches, faster b/c each comparison allows the operations to skip about half of the tree, reduces potential answer by 2, or eliminate one side. avg case is logn, worst case to find an element is 0(n) b/c it could be a LL, and need to search thru the whole tree one at a time.
+
+# using a hash set (hash table is the underlying data structure) is even fast than bst
+# for name_1 in names_1:
+#         if name_1 in names_set:
+#             duplicates.append(name_1)
 
 end_time = time.time()
 print(f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
