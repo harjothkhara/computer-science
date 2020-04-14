@@ -109,16 +109,31 @@ class HashTable:
 
         Fill this in.
         '''
+        # look through the list until key matches (search the LL)
+
         # get the index from hashmod
         index = self._hash_mod(key)
-        # retrieving our target bucket
-        target = self.storage[index]
-        # check if a target exists in the bucket with matching keys
-        if target is not None and target.key == key:
-            # if so, return value
-            return target.value
+        item = self.storage[index]
+        # check if item at index exists (root node)
+        if item is not None:
+            # if so and keys match
+            if item.key == key:
+                # return value at that index
+                return item.value
+            # else traverse LL at that index for retrieval
+            else:
+                current_item = item.next
+                # if there is a next node and there's something there go to it
+                while current_item is not None:
+                    # if keys match retrieve the value
+                    if current_item.key == key:
+                        return current_item.value
+                    else:  # move onto the next node and repeat
+                        current_item = current_item.next
+        # else if item doesn't exist return None
         else:
             # else, return None
+            # print(f"Warning: collision at {index}")
             return None
 
     def resize(self):
@@ -135,12 +150,16 @@ class HashTable:
 
 if __name__ == "__main__":
     ht = HashTable(2)  # hash table of size 2
-    print(ht.storage)
+    print(ht.storage)  # [None, None]
     print("")
+
     # adding 3 items, guaranteed collision:
     ht.insert("apple", "delicious")
+    print(ht.storage)
     ht.insert("pear", "not delicious")
+    print(ht.storage)
     ht.insert("banana", "yummy")
+    print(ht.storage)
     ht.insert("apple", "cake")
     # ht.insert("line_3", "Linked list saves the day!")
     print(ht.storage)
@@ -148,14 +167,14 @@ if __name__ == "__main__":
 
     # Test storing beyond capacity
     print(ht.retrieve("apple"))
-    # print(ht.retrieve("line_2"))
+    print(ht.retrieve("banana"))
     # print(ht.retrieve("line_3"))
     print("")
 
     # Test removal
-    ht.remove("apple")
-    print(ht.storage)
-    print("")
+    # ht.remove("apple")
+    # print(ht.storage)
+    # print("")
     # Test resizing
     # old_capacity = len(ht.storage)
     # ht.resize()
