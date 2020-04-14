@@ -93,10 +93,22 @@ class HashTable:
 
         # hashmod the key to find the index
         index = self._hash_mod(key)
-        # check if a target exists in the bucket with matching keys
-        if self.storage[index] is not None and self.storage[index].key == key:
-            # if so, remove that target
-            self.storage[index] = None
+        item = self.storage[index]
+        # check if a item exists in the bucket with matching keys
+        if item is not None:
+            # and keys match
+            if item.key == key:
+                # removing value stored with key
+                item.value = None
+            # find the node (search the LL) with matching key
+            else:
+                current_item = item.next
+                while current_item is not None:
+                    if current_item.key == key:
+                        # removing value stored with key
+                        current_item.value = None
+                    # key doesn't match so move onto the next node
+                    current_item = current_item.next
         else:
             # else, print warning
             print("Warning: Key does not exist")
@@ -120,7 +132,7 @@ class HashTable:
             if item.key == key:
                 # return value at that index
                 return item.value
-            # else traverse LL at that index for retrieval
+            # else traverse (search) the LL at that index until key matches
             else:
                 current_item = item.next
                 # if there is a next node and there's something there go to it
@@ -128,13 +140,14 @@ class HashTable:
                     # if keys match retrieve the value
                     if current_item.key == key:
                         return current_item.value
-                    else:  # move onto the next node and repeat
-                        current_item = current_item.next
+                    # move onto the next node and repeat
+                    current_item = current_item.next
         # else if item doesn't exist return None
         else:
             # else, return None
             # print(f"Warning: collision at {index}")
             return None
+    # to prevent storing everything in a limited storage capacity, even with LL implementation at the arr index, we still want to resize the array when it hits a certain load factor (# of entries / hash table capacity), and to prevent all items from being stored in limited storage slots down a very long o(n) LL chain (even though its possible and LL chaining will prevent collisions, performance of the hash table will degrade). optimal load factor is 0.7 but doubling it is ok and doesn't effect performance.
 
     def resize(self):
         '''
@@ -146,6 +159,30 @@ class HashTable:
         # create a new array size * 2
         # move all values over
         # remove old array
+
+        # save current hashmap in temp var
+        prev_storage = self.storage
+        # double capacity
+        self.capacity *= 2
+        # new storage
+        self.storage = [None] * self.capacity
+
+        # copy each item (that is not None) from old storage into new storage
+        for item in prev_storage:
+            # if head is only item, insert
+            # self.storage[index] = bucket   self.storage[index].next = None
+            if item is not None and item.next is None:
+                self.insert(item.key, item.value)
+            # if there's a LL, traverse it and insert each item
+            # # self.storage[index] = bucket   self.storage[index].next = bucket
+            if item is not None and item.next is not None:
+                current_item = item
+                while current_item.next is not None:
+                    self.insert(current_item.key, current_item.value)
+                    # move onto the next node and insert
+                    current_item = current_item.next
+                # once at the end, insert last node
+                self.insert(current_item.key, current_item.value)
 
 
 if __name__ == "__main__":
@@ -172,19 +209,22 @@ if __name__ == "__main__":
     print("")
 
     # Test removal
-    # ht.remove("apple")
-    # print(ht.storage)
-    # print("")
-    # Test resizing
-    # old_capacity = len(ht.storage)
-    # ht.resize()
-    # new_capacity = len(ht.storage)
+    ht.remove("apple")
+    print(ht.storage)
+    print("")
 
-    # print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+    # Test resizing
+    old_capacity = len(ht.storage)
+    print(old_capacity)
+    ht.resize()
+    new_capacity = len(ht.storage)
+    print(new_capacity)
+
+    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
 
     # Test if data intact after resizing
-    # print(ht.retrieve("line_1"))
-    # print(ht.retrieve("line_2"))
-    # print(ht.retrieve("line_3"))
+    print(ht.retrieve("apple"))
+    print(ht.retrieve("pear"))
+    print(ht.retrieve("banana"))
 
-    # print("")
+    print("")
