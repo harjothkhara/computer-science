@@ -3,6 +3,9 @@
 # '''
 
 
+import time
+
+
 class LinkedPair:  # LL node
     def __init__(self, key, value):
         self.key = key
@@ -38,7 +41,12 @@ class HashTable:
 
         OPTIONAL STRETCH: Research and implement DJB2
         '''
-        pass
+        # start from an arbitrary large prime
+        hash_value = 5381
+        # Bit-shift and sum value for each character
+        for char in key:
+            hash_value = ((hash_value << 5) + hash_value) + char
+        return hash_value
 
     def _hash_mod(self, key):
         '''
@@ -228,3 +236,31 @@ if __name__ == "__main__":
     print(ht.retrieve("banana"))
 
     print("")
+
+
+# testing hashes
+n = 100000
+key = b"STR"
+print(f"Hashing {n}x")
+
+
+def djb2(key):
+        # start from an arbitrary large prime
+    hash_value = 5381
+    # Bit-shift and sum value for each character
+    for char in key:
+        hash_value = ((hash_value << 5) + hash_value) + char
+    return hash_value
+
+
+start_time = time.time()
+for i in range(n):
+    djb2(key)
+end_time = time.time()
+print(f" DJB2 hash runtime: {end_time - start_time} seconds")
+
+start_time = time.time()
+for i in range(n):
+    hash(key)
+end_time = time.time()
+print(f" Python hash runtime: {end_time - start_time} seconds")
