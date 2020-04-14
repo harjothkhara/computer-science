@@ -3,7 +3,7 @@
 # '''
 
 
-class LinkedPair:
+class LinkedPair:  # LL node
     def __init__(self, key, value):
         self.key = key
         self.value = value
@@ -20,6 +20,7 @@ class HashTable:
     '''
 
     def __init__(self, capacity):
+        self.count = 0  # Number of items currently in the hash table
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
 
@@ -59,23 +60,28 @@ class HashTable:
         '''
         # hashmod the key to find the index
         index = self._hash_mod(key)
-        # storing our target bucket where we want to insert
-        pair = self.storage[index]
+        new_node = LinkedPair(key, value)
 
-        # check if a key:value pair already exists in the index(bucket)
-        if pair is not None:
-            # if so, overwrite the key/value and throw a warning
-            if pair.key != key:  # hash('pear') % 16 != hash('apple') % 16
-                # collision = two keys hash to the same index
-                print("Warning: Collision detected. Overwriting existing value!")
-                pair.key = key
-            pair.value = value
-        else:
-            # if not, created a new LinkedPair and place it in the bucket
-            self.storage[index] = LinkedPair(key, value)
-
-        # printing the index, key (pre-hash), and the value to store
-        # print(f"Insert({index}, {key}, {value}, {pair})")
+        # check if index is None and insert a new node pair at that index
+        if self.storage[index] is None:
+            # create a new LinkedPair and place it in the bucket
+            self.storage[index] = new_node
+        # if key already exists at head of LL, replace value
+        elif self.storage[index].key == key:
+            self.storage[index].value == value
+        # check if a key:value node_pair already exists in the index(bucket)
+        else:  # existing node_pair
+            last_item = self.storage[index]
+            # traverse through LL and check for last item and key matches
+            # hash('pear') % 16 != hash('apple') % 16
+            while last_item.next is not None and last_item.key != key:  # keep going until at end or keys match
+                last_item = last_item.next
+            # if the key matches, replace the value
+            if last_item.key == key:
+                last_item.value = value
+            # else insert a new_node at the end
+            else:
+                last_item.next = new_node
 
     def remove(self, key):
         '''
@@ -148,6 +154,7 @@ if __name__ == "__main__":
     # Test removal
     ht.remove("apple")
     print(ht.storage)
+    print("")
     # Test resizing
     # old_capacity = len(ht.storage)
     # ht.resize()
