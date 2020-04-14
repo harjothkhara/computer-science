@@ -140,6 +140,8 @@ if __name__ == "__main__":
     # adding 3 items, guaranteed collision:
     ht.insert("apple", "delicious")
     ht.insert("pear", "not delicious")
+    ht.insert("banana", "yummy")
+    ht.insert("apple", "cake")
     # ht.insert("line_3", "Linked list saves the day!")
     print(ht.storage)
     print("")
