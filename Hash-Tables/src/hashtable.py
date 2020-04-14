@@ -68,9 +68,8 @@ class HashTable:
             self.storage[index] = new_node
         # if key already exists at head of LL, replace value
         elif self.storage[index].key == key:
-            self.storage[index].value == value
-        # check if a key:value node_pair already exists in the index(bucket)
-        else:  # existing node_pair
+            self.storage[index].value = value
+        else:  # else, traverse LL for node insertion or value override point
             last_item = self.storage[index]
             # traverse through LL and check for last item and key matches
             # hash('pear') % 16 != hash('apple') % 16
