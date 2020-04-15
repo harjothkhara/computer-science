@@ -13,7 +13,7 @@ class LinkedPair:  # LL node
         self.next = None
 
     def __repr__(self):
-        return f"<{self.key}, {self.value}>"
+        return f"<{self.key}, {self.value}, {self.next}>"
 
 
 class HashTable:
