@@ -130,6 +130,14 @@ node_identifier = str(uuid4()).replace('-', '')
 blockchain = Blockchain()
 
 
+@app.route('/', methods=['GET'])
+def hello_world():
+    response = {
+        'text': 'hello world'
+    }
+    return jsonify(response), 200
+
+
 @app.route('/mine', methods=['GET'])
 def mine():
     # Run the proof of work algorithm to get the next proof
@@ -150,6 +158,8 @@ def mine():
 def full_chain():
     response = {
         # TODO: Return the chain and its current length
+        'len': len(blockchain.chain),
+        'chain': blockchain.chain
     }
     return jsonify(response), 200
 
