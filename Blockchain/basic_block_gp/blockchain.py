@@ -93,7 +93,7 @@ class Blockchain(object):
     def last_block(self):
         return self.chain[-1]
 
-    def proof_of_work(self, block):  # e.g print(result)
+    def proof_of_work(self, block):  # takes in last block  e.g print(result)
         """
         Simple Proof of Work Algorithm
         Stringify the block and look for a proof.
@@ -103,14 +103,15 @@ class Blockchain(object):
         """
         # TODO # sort_keys = make sure our hash will show up in the same order                  # self.last_block
         block_string = json.dumps(block, sort_keys=True)
-        proof = 0  # pick a number, using integer proofs
+        proof = 0  # pick a number, using integer proofs. guess
         while self.valid_proof(block_string, proof) is False:
             # don't have to do it this way, randomize it may be better because by incrementing from 0 you'll be slower at competing with others to forge new block with faster machines.
             proof += 1
         return proof
 
     @staticmethod  # 'e.g 0000'
-    def valid_proof(block_string, proof):  # check to see if out pow is actually a valid hash
+    # check to see if our proof is actually a valid hash with leading 0s - all guesses are our pow
+    def valid_proof(block_string, proof):
         """
         Validates the Proof:  Does hash(block_string, proof) contain 3
         leading zeroes?  Return true if the proof is valid
@@ -159,6 +160,7 @@ def mine():
     print(f"After a long process, we got a value {proof}")
     # Forge the new Block by adding it to the chain with this proof
     # this is where you will validate and hash the previous block and append to chain
+    # adds proof and prev hash to block and appends to chain
     new_block = blockchain.new_block(proof)
 
     response = {
