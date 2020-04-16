@@ -131,6 +131,7 @@ class Blockchain(object):
 
         guess_hash = hashlib.sha256(guess).hexdigest()
 
+        # winning combination of leading 0's
         return guess_hash[:3] == '000000'
         # return True or False
 
@@ -143,6 +144,8 @@ node_identifier = str(uuid4()).replace('-', '')
 
 # Instantiate the Blockchain
 blockchain = Blockchain()
+# print(blockchain.chain)
+# print(blockchain.hash(blockchain.last_block))
 
 
 @app.route('/', methods=['GET'])
@@ -158,7 +161,7 @@ def hello_world():
 def mine():
     # pulling data out of POST
     data = request.get_json()
-    print("DATA: ", data)
+    # print("DATA: ", data)
     # check that 'proof' and 'id' are present
     if data is not None:
         if data["id"] is False or data["proof"] is False:
@@ -179,7 +182,7 @@ def mine():
         block = blockchain.new_block(data["proof"], previous_hash)
         # success message to client
         response = {
-            "message": "new block has been forged",
+            "message": "New Block Forged",
             "block": block
         }
        # if not and proof is not valid, sent back an invalid response message
@@ -201,11 +204,11 @@ def full_chain():  # gives us our total chain so we can see, we can process it.
     return jsonify(response), 200
 
 # Add an endpoint called last_block that returns the last block in the chain
-@app.route('/lastblock', methods=['GET'])
+@app.route('/last_block', methods=['GET'])
 def last_block():
     response = {
         # returns the last block in the chain
-        'last block': blockchain.last_block
+        'last_block': blockchain.last_block
     }
     return jsonify(response), 200
 
