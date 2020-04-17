@@ -132,7 +132,7 @@ class Blockchain(object):
         guess_hash = hashlib.sha256(guess).hexdigest()
 
         # winning combination of leading 0's
-        return guess_hash[:3] == '000'
+        return guess_hash[:6] == '000000'
         # return True or False
 
 
