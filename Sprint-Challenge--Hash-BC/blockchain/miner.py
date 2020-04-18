@@ -7,7 +7,7 @@ from uuid import uuid4
 
 from timeit import default_timer as timer
 
-import random
+from random import randint, random
 
 
 def proof_of_work(last_proof):
@@ -23,10 +23,10 @@ def proof_of_work(last_proof):
     start = timer()
 
     print("Searching for next proof")
-    proof = 0  # starting guess
+    proof = randint(-10000, 10000)  # starting guess
     #  TODO: Your code here
     while valid_proof(last_proof, proof) is False:
-        proof += 1  # try a different proof
+        proof -= random()  # try a different proof
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof  # winning proof found!
@@ -56,6 +56,7 @@ if __name__ == '__main__':
         node = sys.argv[1]
     else:
         node = "https://lambda-coin.herokuapp.com/api"
+        # node = "https://lambda-coin-test-1.herokuapp.com/api"
 
     coins_mined = 0
 
