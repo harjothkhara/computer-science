@@ -24,11 +24,12 @@ def hash(x, max):
     x = ((x >> 16) ^ x) * 0x45d9f3b
     x = ((x >> 16) ^ x) * 0x45d9f3b
     x = ((x >> 16) ^ x)
-
+    # hashmod by the array length
     return x % max
 
 
 def hash_table_insert(hash_table, key, value):
+    # which arr bucket is our key going
     index = hash(key, len(hash_table.storage))
 
     current_pair = hash_table.storage[index]
