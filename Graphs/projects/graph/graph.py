@@ -116,6 +116,19 @@ class Graph:
                 # call dft_recursive on each neighbor - now visited!
                 self.dft_recursive(neighbor, visited)
 
+########## Another way ##########
+# if visited is None:
+#   visited = set()
+# -check if the node has been visited
+# -if not,
+# if starting vertex not in visited:
+#   -mark it as visited
+#   visited.add(starting_vertex)
+#   print(starting_vertex)
+#   -call dft_recursive on each neighbor
+#   for neighbor in self.get_neighbors(starting_vertex):
+#       self.dft_recursive(neighbor, visited)
+
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
@@ -151,26 +164,61 @@ class Graph:
                 # Enqueue A PATH TO all of its neighbors
                 for neighbor in self.get_neighbors(v):
                     # MAKE A COPY OF THE PATH
-                    new_path = list(path)  # deep copy
+                    # deep copy pass by value vs pass by reference. arrays are pass by reference, hence we need to make a new copy of the old path before we append to it. also, path.copy() works
+                    path_copy = list(path)
                     # ADD NEIGHBOR TO NEW PATH
-                    new_path.append(neighbor)
+                    path_copy.append(neighbor)
                     # ENQUEUE THE COPY OF THE PATH
-                    q.enqueue(new_path)
+                    q.enqueue(path_copy)
 
                 # target = 6
                 # q = [ [1,2,4,7], [1,2,3,5,3] ]
                  # visited = {1,2,3,4,5}
                  # path = [1,2,4,6]
                  # v = 6
-                 # new_path = [1,2,3,5,3]
+                 # path_copy = [1,2,3,5,3]
 
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
-        depth-first order.
+        depth-first order. Same code as bfs except we're using a different data structure - a stack instead of a queue.
         """
-        pass  # TODO
+        # Create a stack - LIFO
+        s = Stack()
+        # Push A PATH TO the starting vertex
+        s.push([starting_vertex])
+        # Create a set to store visited vertices
+        visited = set()
+        # While the stack is not empty...
+        while s.size() > 0:
+            print(f"Stack: {s}")
+            # Pop the first PATH
+            path = s.pop()
+            print(f"Path: {path}")
+            # GRAB THE VERTEX FROM THE END OF THE PATH
+            v = path[-1]
+            print(f"vertex at end of path: {v}")
+            # Check if it's been visited
+            # If it hasn't been visited...
+            if v not in visited:
+                # CHECK IF IT'S THE TARGET
+                if v == destination_vertex:
+                    # IF SO, RETURN THE PATH
+                    return path
+                # Mark it as visited
+                visited.add(v)
+                print(f"visited: {visited}")
+
+                # Push A PATH TO all of its neighbors
+                for neighbor in self.get_neighbors(v):
+                    # MAKE A COPY OF THE PATH
+                    # deep copy pass by value vs pass by reference. arrays are pass by reference, hence we need to make a new copy of the old path before we append to it. also, path.copy() works
+                    path_copy = list(path)
+                    # ADD NEIGHBOR TO NEW PATH
+                    path_copy.append(neighbor)
+                    # PUSH THE COPY OF THE PATH
+                    s.push(path_copy)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -252,5 +300,5 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
-    # print(graph.dfs(1, 6))
+    print(graph.dfs(1, 6))
     # print(graph.dfs_recursive(1, 6))

@@ -42,3 +42,6 @@ class Stack():  # LIFO
 
     def size(self):
         return len(self.stack)
+
+    def __str__(self):
+        return str(self.stack)
