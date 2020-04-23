@@ -123,22 +123,46 @@ class Graph:
         breath-first order.
         """
         # Create a queue - FIFO
+        q = Queue()
         # Enqueue A PATH TO the starting vertex
+        q.enqueue([starting_vertex])
         # Create a set to store visited vertices
+        visited = set()
         # While the queue is not empty...
-        # Dequeue the first PATH
-        # GRAB THE VERTEX FROM THE END OF THE PATH
-        # Check if it's been visited
-        # If it hasn't been visited...
-        # Mark it as visited
-        # CHECK IF IT'S THE TARGET
-        # IF SO, RETURN THE PATH
-        # Enqueue A PATH TO all of its neighbors
-        # MAKE A COPY OF THE PATH
-        # ENQUEUE THE COPY
-# target = 6
-# q = [ [1] ]
-# visited = {}
+        while q.size() > 0:
+            print(f"Queue: {q}")
+            # Dequeue the first PATH
+            path = q.dequeue()
+            print(f"Path: {path}")
+            # GRAB THE VERTEX FROM THE END OF THE PATH
+            v = path[-1]
+            print(f"vertex at end of path: {v}")
+            # Check if it's been visited
+            # If it hasn't been visited...
+            if v not in visited:
+                # CHECK IF IT'S THE TARGET
+                if v == destination_vertex:
+                    # IF SO, RETURN THE PATH
+                    return path
+                # Mark it as visited
+                visited.add(v)
+                print(f"visited: {visited}")
+
+                # Enqueue A PATH TO all of its neighbors
+                for neighbor in self.get_neighbors(v):
+                    # MAKE A COPY OF THE PATH
+                    new_path = list(path)  # deep copy
+                    # ADD NEIGHBOR TO NEW PATH
+                    new_path.append(neighbor)
+                    # ENQUEUE THE COPY OF THE PATH
+                    q.enqueue(new_path)
+
+                # target = 6
+                # q = [ [1,2,4,7], [1,2,3,5,3] ]
+                 # visited = {1,2,3,4,5}
+                 # path = [1,2,4,6]
+                 # v = 6
+                 # new_path = [1,2,3,5,3]
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -201,8 +225,8 @@ if __name__ == '__main__':
         1, 2, 4, 3, 7, 6, 5
         1, 2, 4, 3, 7, 5, 6
     '''
-    print("BFT")
-    graph.bft(1)  # starting vertex
+    # print("BFT")
+    # graph.bft(1)  # starting vertex
 
     '''
     Valid DFT paths:
@@ -211,17 +235,17 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
-    print("DFT")
-    graph.dft(1)  # starting vertex
+    # print("DFT")
+    # graph.dft(1)  # starting vertex
 
-    print("DFT Recursive")
-    graph.dft_recursive(1)  # starting vertex
+    # print("DFT Recursive")
+    # graph.dft_recursive(1)  # starting vertex
 
     '''
     Valid BFS path:
         [1, 2, 4, 6]
     '''
-    # print(graph.bfs(1, 6))
+    print(graph.bfs(1, 6))
 
     '''
     Valid DFS paths:

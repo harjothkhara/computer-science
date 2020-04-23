@@ -20,6 +20,12 @@ class Queue():  # FIFO
     def size(self):
         return len(self.queue)
 
+    def __repr__(self):
+        return {'Queue': self.queue}
+
+    def __str__(self):
+        return str(self.queue)
+
 
 class Stack():  # LIFO
     def __init__(self):
