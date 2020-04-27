@@ -224,11 +224,11 @@ class Graph:
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
-        depth-first order.
+        depth-first order. Not a clean version. Don't memorize
 
         This should be done using recursion.
         """
-        print(f"path: {path}")
+        # print(f"path: {path}")
         # for initial function call
         if visited is None:
             visited = set()
@@ -237,7 +237,7 @@ class Graph:
         # check if its been visited
         # if it hasn't been visited ...
         if starting_vertex not in visited:
-            print(f"visited: {visited}")
+            # print(f"visited: {visited}")
             # mark it as visited
             visited.add(starting_vertex)
             # make a copy of the path
@@ -326,6 +326,6 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
-    # print(graph.dfs(1, 6))
-    print("DFS Recursive")
-    print(graph.dfs_recursive(1, 6))
+    print(graph.dfs(1, 6))
+    # print("DFS Recursive")
+    # print(graph.dfs_recursive(1, 6))
