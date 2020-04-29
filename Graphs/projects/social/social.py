@@ -13,6 +13,9 @@ class User:
     def __str__(self):
         return str(self.name)
 
+    def __repr__(self):
+        return repr(self.name)
+
 
 class SocialGraph:
     def __init__(self):
@@ -85,7 +88,7 @@ class SocialGraph:
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    # print(sg.users) # {1: User 1, 2: User 2...}
+    print(sg.users)  # {1: User 1, 2: User 2...}
     print(sg.friendships)
     # {1: set(), 2: set(), 3: set(), 4: set(), 5: set(), 6: set(), 7: set(), 8: set(), 9: set(), 10: set()}
 

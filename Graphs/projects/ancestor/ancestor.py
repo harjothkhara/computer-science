@@ -1,4 +1,5 @@
 from util import Stack, Queue
+# what does this graph represent? hierarchial parent child relationship
 
 # 1. Translate the problem into graph terminology
 
@@ -94,9 +95,9 @@ def earliest_ancestor(ancestors, starting_node):
 # print(earliest_ancestor(ancestors, 3))  # 10
 # print(earliest_ancestor(ancestors, 4))  # -1
 # print(earliest_ancestor(ancestors, 5))  # 4
-# print(earliest_ancestor(ancestors, 6))  # 10
+print(earliest_ancestor(ancestors, 6))  # 10
 # print(earliest_ancestor(ancestors, 7))  # 4
-print(earliest_ancestor(ancestors, 8))  # 4
+# print(earliest_ancestor(ancestors, 8))  # 4
 # print(earliest_ancestor(ancestors, 9))  # 4
 # print(earliest_ancestor(ancestors, 10))  # -1
 # print(earliest_ancestor(ancestors, 11))  # -1
