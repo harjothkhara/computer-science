@@ -80,12 +80,16 @@ class SocialGraph:
         # avoid duplicates by making sure first number is smaller than second
         for user_id in self.users:  # e.g for user 4 we only care about user 5,6,7 ...
             # don't want to ignore last
+            # (1,2), (1,3), (1,4)....(2,3),(2,4)...
             for friend_id in range(user_id + 1, self.last_id + 1):
                 possible_friendships.append((user_id, friend_id))
 
         # shuffle all possible friendships
         random.shuffle(possible_friendships)
 
+        # create n friendships where n = avg_friendships *  num_users //2
+        # avg_friendships = total_friendships / num_users
+        # total_friendships = avg_friendships * num_users
         # create for first X pairs x is total //2
         for i in range(num_users * avg_friendships // 2):
             friendship = possible_friendships[i]
@@ -120,6 +124,8 @@ class SocialGraph:
         visited = {}  # Note that this is a dictionary, not a set
         # while queue not empty
         while q.size() > 0:
+            # print(f"visited {visited}")
+            # print(f"QUEUE: {q.queue}")
             # dequeue first path
             path = q.dequeue()
             vertex = path[-1]
@@ -128,7 +134,7 @@ class SocialGraph:
                 # do the thing!
                 # add to visited
                 visited[vertex] = path  # {1: {8, 10, 5}, 2: {10, 5, 7}
-                # for each neighbor (we have the whole graph in frienships and don't have to go searching for neighbors of current vertex like before)
+                # for each neighbor (we have the whole graph in friendships and don't have to go searching for neighbors of current vertex like before)
                 for neighbor in self.friendships[vertex]:
                     # copy path and enqueue
                     new_path = path.copy()
@@ -139,6 +145,7 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
+    print("")
     sg.populate_graph(10, 2)
     print("")
     print(f"users:{sg.users}")  # {1: User 1, 2: User 2...}

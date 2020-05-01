@@ -24,7 +24,7 @@ def get_parents(ancestors, child):
     return results
 
 
-# Our Graph, or given dataset (parent, child)
+# Our Graph, or given dataset (parent, child) - could also have used graph class
 ancestors = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7),
              (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
 
@@ -60,7 +60,7 @@ def earliest_ancestor(ancestors, starting_node):
         s = Stack()
         # push the starting node (a path) into the stack
         s.push([starting_node])
-        # create a set to store visited vertices
+        # create a set to store visited vertices (good if we have a loop)
         visited = set()
         # while there is something in the stack
         while s.size() > 0:
