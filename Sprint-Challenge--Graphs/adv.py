@@ -30,29 +30,46 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 flip_directions = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
-traversal_path = []  # adjacency list
+traversal_path = ['n']  # adjacency list
 
 
 def dft_walk(room, visited=None):
     # if no rooms have been visited yet...
-        # assign an empty set to visited
+    if visited is None:
+        # assign an empty set to visited (room id's)
+        visited = set()
     # assign an empty array to explored_path
+    explored_path = []
     # add the current room's ID to visited
+    visited.add(room.id)
     # for each potential exit we can choose in this room ...
+    for this_exit in room.get_exits():
         # move the player to a room in direction of exit
+        new_room = room.get_room_in_direction(this_exit)
         # if the new room hasn't been visited yet...
-            # explore the new room, update visited, and check to see if its a valid path (not a dead-end)
+        if new_room.id not in visited:
+            # explore the new room, update visited, and check to see if its a valid path (not a dead-end) - recursively call
+            valid_path = dft_walk(new_room, visited)
             # if it is a valid path we move deep into the maze
+            if valid_path:
                 # update our current path to include valid path
+                current_path = [this_exit] + valid_path + \
+                    [flip_directions[this_exit]]
             # else, not a valid path...
+            else:
                 # update our current path and exclude invalid path (backtrack)
+                current_path = [this_exit, flip_directions[this_exit]]
             # whether the path was valid or not, add the current path to our explored path and reassign variable
+            explored_path = explored_path + current_path
     # return explored path (after all the loops and conditionals are complete)
+    return explored_path
 
-    # assign the provided initial traversal_path variable to our explore function and pass in the player's current room to begin the game
+
+# assign the provided initial traversal_path variable to our traversal function and pass in the player's current room to begin the game
+traversal_path = dft_walk(player.current_room)
 
 
-    # TRAVERSAL TEST - DO NOT MODIFY
+# TRAVERSAL TEST - DO NOT MODIFY
 visited_rooms = set()
 player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
@@ -68,8 +85,10 @@ else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
+print("")
 # print traversal path
-print(traversal_path)
+print(f"traversal-path: {traversal_path}")
+print("")
 
 #######
 # UNCOMMENT TO WALK AROUND
