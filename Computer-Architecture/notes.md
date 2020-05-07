@@ -145,3 +145,121 @@ can also use base 16 to evaluate: B has 11 1's
 16 - 12 * 16
 
 12 * 16 + 11 * 1 = 203
+
+
+BINARY (Base 2)
++--------128s place
+|+-------64s place
+||+------32s place
+|||+-----16s place
+||||+----8s place
+|||||+----4s place
+||||||+--2s place
+|||||||+-1s place
+||||||||
+76543210
+
+########
+Bases
+########
+
+  0
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+
+1234
+
+one 1000
+two 100
+three 10
+four 1
+
+1 * 1000 + (10**3)
+2 * 100 + (10**2)
+3 * 10 + (10**1)
+4 * 1 (10**0)
+
+powers of 10
+
+binary counting (same pattern but in a different base)
++----8s place (0b1000's place)
+|+----4s place (0b100's place)
+||+--2s place (0b10's place)
+|||+-1s place (0b1's place)
+||||
+   0    # 0
+   1    # 1
+  10    # 2
+  11    # 3
+ 100    # 4
+ 101    # 5
+ 110    # 6
+ 111    # 7
+1000    # 8
+
+1101 in decimal?
+
+one in the 8's place +
+1 * 8
+one in the 4's place +
+1 * 4
+zero in the 2's place +
+0 * 2
+one in the 1's place +
+1 * 1
+________
+13
+
+to know the place values in your destination base and then add them up
+base 10 numbers for the binary place values.
+
+Binary to Hex
+
+############
+Binary to Hex
+#############
+0 - 9, a,b,c,d,e,f
+4 binary digits == 1 hex digit
+  ^^         ^
+Byte is 8 bits
+
+11010011 binary == d3 hexadecimal
+
+1101 0011
+ |     |
+ 13    3
+  |
+  d
+
+0xff
+  15    15 (last in prefix 0-9,a-f)
+   |     |
+   ^     ^
+  1111  1111
+
+one in the 8 bucket place +
+1 * 8
+one in the 4 bucket place +
+1 * 4
+once in 2 bucket place +
+1 * 2
+one in the 1 bucket place +
+1 * 1
+________
+8 + 4 + 2 + 1 = 15 decimal
+1111 binary
+
+    f             f
+   1111          1111
+
+128+64+32+16 +  8+4+2+1 = 255
+
+0xff == 0b11111111 == 255 (max amount we can store in 8 bits, or 1 byte)
