@@ -10,6 +10,7 @@ class CPU:
         """Construct a new CPU."""
         self.reg = [0] * 8  # like variables R0-R7
         self.ram = [0] * 256
+        self.pc = 0  # program counter
 
     def load(self):
         """Load a program into memory."""
@@ -20,12 +21,12 @@ class CPU:
 
         program = [
             # From print8.ls8
-            0b10000010,  # LDI R0,8
-            0b00000000,
-            0b00001000,
-            0b01000111,  # PRN R0
-            0b00000000,
-            0b00000001,  # HLT
+            0b10000010,  # LDI R0,8 - decimal value: 130
+            0b00000000,  # at ram[0]
+            0b00001000,  # store the value 8
+            0b01000111,  # PRN R0 -- decimal value is 71
+            0b00000000,  # print ram[0]
+            0b00000001,  # HLT - decimal value is 1
         ]
 
         for instruction in program:
@@ -69,6 +70,45 @@ class CPU:
 
         print()
 
+    def HLT(self):
+        sys.exit(0)
+
+    def LDI(self, reg_add, value):
+        '''
+        This instruction sets a specified register to a specified value
+        '''
+        self.reg[reg_add] = value  # e.g register[0] = 37
+
+    def PRN(self, reg_add):
+        '''
+        Print numeric value stored in the given register.
+        '''
+        return self.reg[reg_add]
+
     def run(self):
         """Run the CPU."""
-        pass
+        # load the program
+        self.load()
+
+        IR = None  # Instruction Register, contains a copy of the currently executing instruction
+
+        while True:
+            inst = self.ram[self.pc] # lets receive some instructions, and execute them
+            if inst == 130:
+                address = self.ram[self.pc + 1] # operand 1
+                value = self.ram[self.pc + 2]   # operand 2
+                # store the data
+                self.LDI(address, value)
+                # increment the PC by 2 to skips the operands and go to next instruction
+                self.pc += 3
+            elif inst == 71:
+                data = self.ram[self.pc + 1]
+                # print the data
+                print(self.PRN(data))
+                # increment the PC by 1 to skip the operand and go to next instruction
+                self.pc += 2
+            elif inst == 1:
+                self.HLT()
+            else:
+                print(f"I did not understand that command: {inst}")
+                sys.exit(1)
