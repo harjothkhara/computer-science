@@ -81,27 +81,37 @@ class CPU:
         # load the program into memory
         self.load()
 
-        while True:
+        running = True
+
+        while running:
             # Instruction Register, contains a copy of the currently executing instruction
             # lets receive some instructions from RAM, and execute them
             # IR =  read the memory address that's stored in register PC (special purpose register), and store that result in IR. initially points to the 0th spot in our RAM
             IR = self.ram[self.pc]
+
+            # if instruction is LDI
             if IR == LDI:  # opcode for save
                 address = self.ram[self.pc + 1]  # operand 1
                 value = self.ram[self.pc + 2]   # operand 2
                 # store the data
-                self.LDI(address, value)
+                self.reg[address] = value
                 # increment the PC by 3 to skips the operands and go to next instruction
                 self.pc += 3
+
+            # if instrcution is PRN
             elif IR == PRN:  # opcode for print
                 data = self.ram[self.pc + 1]
                 # print the data
-                print(self.PRN(data))
+                print(self.reg[data])
                 # increment the PC by 2 to skip the operand and go to next instruction
                 self.pc += 2
+
+             # if insruction is HLT
             elif IR == HLT:  # opcode for HLT - Halts the program and exits
                 # 0 - means a clean exit without any errors / problems
                 sys.exit(0)
+
+            # if instruction is non recognizable
             else:
                 print(f"I did not understand that command: {IR}")
                 # 1 - means there was some issue / error / problem and that is why the program is exiting.
