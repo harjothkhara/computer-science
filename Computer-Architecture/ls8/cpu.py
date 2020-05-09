@@ -5,10 +5,8 @@ import sys
 # print(sys.argv)
 
 HLT = 1
-SAVE = 130
-PRINT = 71
-LDI = 130
-PRN = 71
+LDI = 130  # SAVE
+PRN = 71  # PRINT
 
 
 class CPU:
@@ -36,7 +34,7 @@ class CPU:
             0b00000000,  # print reg[0] (operand 1)
             0b00000001,  # HLT - decimal value is 1
         ]
-        # adding program instructions to RAM
+        # adding program instructions from CPU register to RAM
         for instruction in program:
             self.ram[address] = instruction
             address += 1
@@ -78,18 +76,6 @@ class CPU:
 
         print()
 
-    def LDI(self, reg_add, value):
-        '''
-        This instruction sets a specified register to a specified value
-        '''
-        self.reg[reg_add] = value  # e.g register[0] = 37
-
-    def PRN(self, reg_add):
-        '''
-        Print numeric value stored in the given register.
-        '''
-        return self.reg[reg_add]
-
     def run(self):
         """Run the CPU."""
         # load the program into memory
@@ -97,17 +83,17 @@ class CPU:
 
         while True:
             # Instruction Register, contains a copy of the currently executing instruction
-            # lets receive some instructions, and execute them
-            # initially points to the 0th spot in our RAM
+            # lets receive some instructions from RAM, and execute them
+            # IR =  read the memory address that's stored in register PC (special purpose register), and store that result in IR. initially points to the 0th spot in our RAM
             IR = self.ram[self.pc]
-            if IR == 130:  # opcode for LDI
+            if IR == LDI:  # opcode for save
                 address = self.ram[self.pc + 1]  # operand 1
                 value = self.ram[self.pc + 2]   # operand 2
                 # store the data
                 self.LDI(address, value)
                 # increment the PC by 3 to skips the operands and go to next instruction
                 self.pc += 3
-            elif IR == 71:  # opcode for PRN
+            elif IR == PRN:  # opcode for print
                 data = self.ram[self.pc + 1]
                 # print the data
                 print(self.PRN(data))
