@@ -2,6 +2,14 @@
 
 import sys
 
+# print(sys.argv)
+
+HLT = 1
+SAVE = 130
+PRINT = 71
+LDI = 130
+PRN = 71
+
 
 class CPU:
     """Main CPU class."""
@@ -15,17 +23,17 @@ class CPU:
     def load(self):
         """Load a program into memory."""
 
-        address = 0
+        address = 0  # indexes the long array of memory (RAM)
 
         # For now, we've just hardcoded a program:
 
         program = [
             # From print8.ls8
             0b10000010,  # LDI R0,8 - decimal value: 130
-            0b00000000,  # at reg[0]
-            0b00001000,  # store the value 8
+            0b00000000,  # at reg[0] (operand 1)
+            0b00001000,  # store the value 8 - (operand 2)
             0b01000111,  # PRN R0 -- decimal value is 71
-            0b00000000,  # print reg[0]
+            0b00000000,  # print reg[0] (operand 1)
             0b00000001,  # HLT - decimal value is 1
         ]
         # adding program instructions to RAM
@@ -70,12 +78,6 @@ class CPU:
 
         print()
 
-    def HLT(self):
-        '''
-        Halts the program and exits
-        '''
-        sys.exit(0)
-
     def LDI(self, reg_add, value):
         '''
         This instruction sets a specified register to a specified value
@@ -96,22 +98,25 @@ class CPU:
         while True:
             # Instruction Register, contains a copy of the currently executing instruction
             # lets receive some instructions, and execute them
+            # initially points to the 0th spot in our RAM
             IR = self.ram[self.pc]
-            if IR == 130:
+            if IR == 130:  # opcode for LDI
                 address = self.ram[self.pc + 1]  # operand 1
                 value = self.ram[self.pc + 2]   # operand 2
                 # store the data
                 self.LDI(address, value)
                 # increment the PC by 3 to skips the operands and go to next instruction
                 self.pc += 3
-            elif IR == 71:
+            elif IR == 71:  # opcode for PRN
                 data = self.ram[self.pc + 1]
                 # print the data
                 print(self.PRN(data))
                 # increment the PC by 2 to skip the operand and go to next instruction
                 self.pc += 2
-            elif IR == 1:
-                self.HLT()
+            elif IR == HLT:  # opcode for HLT - Halts the program and exits
+                # 0 - means a clean exit without any errors / problems
+                sys.exit(0)
             else:
                 print(f"I did not understand that command: {IR}")
+                # 1 - means there was some issue / error / problem and that is why the program is exiting.
                 sys.exit(1)
