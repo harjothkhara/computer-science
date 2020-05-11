@@ -4,7 +4,7 @@
 PRINT_BEEJ = 1  # for LS8 look up what this is in spec
 HALT = 2  # for LS8 look up what this is in spec
 SAVE_REG = 3  # Store a value in a register (in the LS8 called LDI)
-PRINT_REG = 4  # corresponds to PRN instruction in the LS8
+PRINT_REG = 4  # print a value from a a register. corresponds to PRN instruction in the LS8
 
 memory = [  # instructions (scroll)
     PRINT_BEEJ,  # instruction is 1 byte long

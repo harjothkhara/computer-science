@@ -2,6 +2,8 @@
 
 import sys
 
+# parse the command line
+# program_filename = sys.argv[1]
 # print(sys.argv)
 
 HLT = 1
@@ -14,18 +16,20 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
-        self.reg = [0] * 8  # like variables R0-R7
+        # like variables R0-R7, 8 bit register, 8 registers, index 0-7
+        self.reg = [0] * 8
+        # LS8 has only 8 registers, each 1 byte (base 2) 256 buckets, index 0-255,
         self.ram = [0] * 256
         self.pc = 0  # program counter
 
     def load(self):
         """Load a program into memory."""
 
-        address = 0  # indexes the long array of memory (RAM)
+        address = 0  # indexes the long array (256 slots) of memory (RAM)
 
         # For now, we've just hardcoded a program:
 
-        program = [
+        program = [  # list of opcodes (program instructions)
             # From print8.ls8
             0b10000010,  # LDI R0,8 - decimal value: 130
             0b00000000,  # at reg[0] (operand 1)
@@ -34,9 +38,11 @@ class CPU:
             0b00000000,  # print reg[0] (operand 1)
             0b00000001,  # HLT - decimal value is 1
         ]
-        # adding program instructions from CPU register to RAM
+        # adding program instructions to RAM
         for instruction in program:
+            # inserting instruction into memory slot (self.ram[0] = 130)
             self.ram[address] = instruction
+            # print(instruction)
             address += 1
 
     def ram_read(self, MAR):
@@ -78,7 +84,7 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
-        # load the program into memory
+        # load the program into memory (if not already loaded)
         self.load()
 
         running = True
@@ -87,23 +93,25 @@ class CPU:
             # Instruction Register, contains a copy of the currently executing instruction
             # lets receive some instructions from RAM, and execute them
             # IR =  read the memory address that's stored in register PC (special purpose register), and store that result in IR. initially points to the 0th spot in our RAM
-            IR = self.ram[self.pc]
+            IR = self.ram[self.pc]  # 130, 71, 1
+            # print(IR)
 
             # if instruction is LDI
-            if IR == LDI:  # opcode for save
-                address = self.ram[self.pc + 1]  # operand 1
-                value = self.ram[self.pc + 2]   # operand 2
-                # store the data
-                self.reg[address] = value
-                # increment the PC by 3 to skips the operands and go to next instruction
+            if IR == LDI:  # opcode for save (130)
+                address = self.ram[self.pc + 1]  # operand 1 - 0
+                value = self.ram[self.pc + 2]   # operand 2 - 8
+                # store the data in a register
+                self.reg[address] = value  # reg 0 = 8
+                # go to the next instruction in our RAM
                 self.pc += 3
 
             # if instrcution is PRN
             elif IR == PRN:  # opcode for print
-                data = self.ram[self.pc + 1]
-                # print the data
-                print(self.reg[data])
-                # increment the PC by 2 to skip the operand and go to next instruction
+                # grab our only operand (register number)
+                operand = self.ram[self.pc + 1]  # 0
+                # using our operand we print the register value where we originally saved
+                print(self.reg[operand])  # 8
+                # go to the next instruction in our RAM
                 self.pc += 2
 
              # if insruction is HLT
