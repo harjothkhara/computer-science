@@ -94,7 +94,9 @@ class CPU:
             # lets receive some instructions from RAM, and execute them
             # IR =  read the memory address that's stored in register PC (special purpose register), and store that result in IR. initially points to the 0th spot in our RAM
             IR = self.ram[self.pc]  # 130, 71, 1
-            # print(IR)
+
+            # getting the number of operands (AA) from the program instructions (opcode)
+            operand_count = IR >> 6  # bitshift to get number of operands for this opcode
 
             # if instruction is LDI
             if IR == LDI:  # opcode for save (130)
@@ -103,7 +105,6 @@ class CPU:
                 # store the data in a register
                 self.reg[address] = value  # reg 0 = 8
                 # go to the next instruction in our RAM
-                self.pc += 3
 
             # if instrcution is PRN
             elif IR == PRN:  # opcode for print
@@ -112,7 +113,6 @@ class CPU:
                 # using our operand we print the register value where we originally saved
                 print(self.reg[operand])  # 8
                 # go to the next instruction in our RAM
-                self.pc += 2
 
              # if insruction is HLT
             elif IR == HLT:  # opcode for HLT - Halts the program and exits
@@ -124,3 +124,5 @@ class CPU:
                 print(f"I did not understand that command: {IR}")
                 # 1 - means there was some issue / error / problem and that is why the program is exiting.
                 sys.exit(1)
+            # The number of operands AA is useful to know because the total number of bytes in any instruction is the number of operands + 1 (for the opcode).
+            self.pc += operand_count + 1
