@@ -3,7 +3,6 @@
 import sys
 
 # parse the command line
-# program_filename = sys.argv[1]
 # print(sys.argv)
 
 HLT = 1
@@ -25,25 +24,45 @@ class CPU:
     def load(self):
         """Load a program into memory."""
 
+        program_filename = sys.argv[1]
         address = 0  # indexes the long array (256 slots) of memory (RAM)
 
         # For now, we've just hardcoded a program:
 
-        program = [  # list of opcodes (program instructions)
-            # From print8.ls8
-            0b10000010,  # LDI R0,8 - decimal value: 130
-            0b00000000,  # at reg[0] (operand 1)
-            0b00001000,  # store the value 8 - (operand 2)
-            0b01000111,  # PRN R0 -- decimal value is 71
-            0b00000000,  # print reg[0] (operand 1)
-            0b00000001,  # HLT - decimal value is 1
-        ]
-        # adding program instructions to RAM
-        for instruction in program:
-            # inserting instruction into memory slot (self.ram[0] = 130)
-            self.ram[address] = instruction
-            # print(instruction)
-            address += 1
+        # program = [  # list of opcodes (program instructions)
+        #     # From print8.ls8
+        #     0b10000010,  # LDI R0,8 - decimal value: 130
+        #     0b00000000,  # at reg[0] (operand 1)
+        #     0b00001000,  # store the value 8 - (operand 2)
+        #     0b01000111,  # PRN R0 -- decimal value is 71
+        #     0b00000000,  # print reg[0] (operand 1)
+        #     0b00000001,  # HLT - decimal value is 1
+        # ]
+        # # adding program instructions to RAM
+        # for instruction in program:
+        #     # inserting instruction into memory slot (self.ram[0] = 130)
+        #     self.ram[address] = instruction
+        #     # print(instruction)
+        #     address += 1
+        with open(program_filename) as f:
+            # iterate through each line in the program
+            for line in f:
+                # remove any comments
+                line = line.split("#")[0]
+                # remove whitespace
+                line = line.strip()
+                # skip any empty lines
+                if line == "":
+                    continue  # skips rest of the code for current iteration only
+                # change from str to int - since binary using base 2, otherwise default base 10
+                value = int(line, 2)
+                # adding program instructions to RAM
+                self.ram[address] = value
+                # print(value, type(value))
+                # print(value)
+                address += 1
+
+        # print(self.ram)
 
     def ram_read(self, MAR):
         return self.ram[MAR]
