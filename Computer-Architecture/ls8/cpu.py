@@ -8,6 +8,7 @@ import sys
 HLT = 1
 LDI = 130  # SAVE
 PRN = 71  # PRINT
+MUL = 162  # MULTIPLY
 
 
 class CPU:
@@ -131,9 +132,19 @@ class CPU:
                 operand = self.ram[self.pc + 1]  # 0
                 # using our operand we print the register value where we originally saved
                 print(self.reg[operand])  # 8
-                # go to the next instruction in our RAM
 
-             # if insruction is HLT
+            # if instruction is MUL
+            elif IR == MUL:  # opcode for multiply
+                # print(f"mul_before:{self.reg}")
+                # grab operand 1 for register A
+                reg_A = self.ram[self.pc + 1]  # value in register A
+                # grab operand 2 for register B
+                reg_B = self.ram[self.pc + 2]  # value in register B
+
+                # multiple the values in two registers together and store the result in register A. store in one of our registers
+                self.reg[reg_A] *= self.reg[reg_B]
+                # print(f"mul_after:{self.reg}")
+            # if instruction is HLT - Halt the CPU (and exit the emulator)
             elif IR == HLT:  # opcode for HLT - Halts the program and exits
                 # 0 - means a clean exit without any errors / problems
                 sys.exit(0)
@@ -143,5 +154,6 @@ class CPU:
                 print(f"I did not understand that command: {IR}")
                 # 1 - means there was some issue / error / problem and that is why the program is exiting.
                 sys.exit(1)
-            # The number of operands AA is useful to know because the total number of bytes in any instruction is the number of operands + 1 (for the opcode).
+            # go to the next instruction in our RAM
             self.pc += operand_count + 1
+            # The number of operands AA is useful to know because the total number of bytes in any instruction is the number of operands + 1 (for the opcode).
