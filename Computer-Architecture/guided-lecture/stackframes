@@ -1,0 +1,49 @@
+Stack Frames
+_____________
+
+# Stack grows downward
+
+# 701:
+# 700: # return point 1
+# 699: # return point 2 <-- SP
+#
+#
+#
+
+When you call, return address gets pushed on the Stack
+When you return, return address gets popped off the stack and stored in PC
+
+def mult2(x,y):
+  z = x * y
+  return z
+
+def main():
+  a = 2
+  b = mult2(a,2)
+
+  # return point 2
+
+  print(b) # 14
+
+  return
+
+main() <-- PC
+# return point 1
+
+print("All done!")
+
+# using stack to keep track where to return back to from the function once it finishes. we pop that address of the stack and store in PC
+
+e.g
+LDI R0,8
+CALL R0 <--- PC + 0
+PRN R0 <-- PC + 2 return address that gets pushed to the stack. find address and push to stack
+HALT
+
+How do we compute what the next address is? Look at where PC is in opcode and increment based on how many bytes big the call instruction is i.e PC + 2
+
+1. compute pc + 2, the return address
+2. push the return address on the stack
+3. set the pc to the value in the given register (where the function is)
+
+Call Register does take in an operand which is a register, destination where we're going
