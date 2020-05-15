@@ -25,7 +25,7 @@ class CPU:
         # LS8 has only 8 registers, each 1 byte (base 2) 256 buckets, index 0-255,
         self.ram = [0] * 256
         self.pc = 0  # program counter
-        # the SP points at the value at the top of the stack (most recently pushed), or at address F4 if the stack is empty.
+        # the SP points at the value at the top of the stack (most recently pushed), or at address F4 if the stack is empty. initialized 1 spot above the beginning of stack when empty. address of SP register to start. this is what SP is pointing to
         self.reg[SP] = 0xF4
 
     def load(self):
@@ -119,17 +119,18 @@ class CPU:
             # Instruction Register, contains a copy of the currently executing instruction
             # lets receive some instructions from RAM, and execute them
             # IR =  read the memory address that's stored in register PC (special purpose register), and store that result in IR. initially points to the 0th spot in our RAM
-            IR = self.ram_read(self.pc)  # 130, 71, 1
+            # get our instructions from where PC is currently pointing
+            IR = self.ram_read(self.pc)
 
             # getting the number of operands (AA) from the program instructions (opcode)
-            operand_count = IR >> 6  # bitshift to get number of operands for this opcode
+            operand_count = IR >> 6  # bitshift to get number of operands for this instruction
 
             # if instruction is LDI
             if IR == LDI:  # opcode for save (130)
-                address = self.ram_read(self.pc + 1)  # operand 1 - 0
-                value = self.ram_read(self.pc + 2)   # operand 2 - 8
+                register = self.ram_read(self.pc + 1)  # operand 1
+                value = self.ram_read(self.pc + 2)   # operand 2
                 # store the data in a register
-                self.reg[address] = value  # reg 0 = 8
+                self.reg[register] = value  # reg 0 = 8
                 # go to the next instruction in our RAM
 
             # if instrcution is PRN
@@ -151,16 +152,25 @@ class CPU:
                 self.reg[reg_A] *= self.reg[reg_B]
                 # print(f"mul_after:{self.reg}")
 
-            # emptying register and pushing to stack
             elif IR == PUSH:
-                # grab the register operand (which register?)
+                # which register do you want to push to the stack?
                 register = self.ram_read(self.pc + 1)
-                # get the value in register
+                # get the value at that register
                 value = self.reg[register]
                 # decrement the stack pointer (SP)
                 self.reg[SP] -= 1
                 # copy the value from the given register to RAM at the SP index
                 self.ram_write(self.reg[SP], value)
+
+            elif IR == POP:
+                # grab the address of where to store the value in register
+                register = self.ram_read(self.pc + 1)
+                # get the last value in the stack
+                last_value = self.ram_read(self.reg[SP])
+                # assign that value in the register at the provided address
+                self.reg[register] = last_value
+                # increment the SP
+                self.reg[SP] += 1
 
             # if instruction is HLT - Halt the CPU (and exit the emulator)
             elif IR == HLT:  # opcode for HLT - Halts the program and exits

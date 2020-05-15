@@ -11,6 +11,7 @@ SAVE_REG = 3   # Store a value in a register (in the LS8 called LDI)
 PRINT_REG = 4  # corresponds to PRN in the LS8
 PUSH = 5
 POP = 6
+CALL = 7
 ​
 """
 memory = [
