@@ -14,6 +14,8 @@ POP = 70  # 0b01000110
 CALL = 80
 ADD = 160
 RET = 17
+SUB = 161
+DIV = 163
 
 SP = 7  # R7 is reserved as the stack pointer (SP) Fixed
 
@@ -85,9 +87,15 @@ class CPU:
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
 
-        if op == "ADD":
+        if op == ADD:
+            # adding reg_a and reb_b together and storing result in reg_a
             self.reg[reg_a] += self.reg[reg_b]
-        # elif op == "SUB": etc
+        elif op == SUB:
+            self.reg[reg_a] -= self.reg[reg_b]
+        elif op == MUL:
+            self.reg[reg_a] *= self.reg[reg_b]
+        elif op == DIV:
+            self.reg[reg_a] /= self.reg[reg_b]
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -145,23 +153,11 @@ class CPU:
                 # using our operand we print the register value where we originally saved
                 print(self.reg[operand])  # 8
 
-            # if instruction is MUL
-            elif IR == MUL:  # opcode for multiply
-                # print(f"mul_before:{self.reg}")
-                # grab operand 1 for register A
-                reg_A = self.ram_read(self.pc + 1)  # value in register A
-                # grab operand 2 for register B
-                reg_B = self.ram_read(self.pc + 2)  # value in register B
-
-                # multiple the values in two registers together and store the result in register A. store in one of our registers
-                self.reg[reg_A] *= self.reg[reg_B]
-                # print(f"mul_after:{self.reg}")
-
-            elif IR == ADD:
+            # if instruction is MUL or ADD
+            elif IR == MUL or IR == ADD:
                 reg_a = self.ram_read(self.pc + 1)
                 reg_b = self.ram_read(self.pc + 2)
-                # adding reg_a and reb_b together and storing result in reg_a
-                self.reg[reg_a] += self.reg[reg_b]
+                self.alu(IR, reg_a, reg_b)
 
             elif IR == PUSH:
                 # which register do you want to push to the stack?
