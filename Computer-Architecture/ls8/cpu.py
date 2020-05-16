@@ -16,6 +16,7 @@ ADD = 160
 RET = 17
 SUB = 161
 DIV = 163
+CMP = 167  # 0b10100111
 
 SP = 7  # R7 is reserved as the stack pointer (SP) Fixed
 
@@ -32,6 +33,8 @@ class CPU:
         self.pc = 0  # program counter
         # the SP points at the value at the top of the stack (most recently pushed), or at address F4 if the stack is empty. initialized 1 spot above the beginning of stack when empty. address of SP register to start. this is what SP is pointing to
         self.reg[SP] = 0xF4
+        # Flags register
+        self.FL = 0b00000000
 
     def load(self):
         """Load a program into memory."""
@@ -96,6 +99,16 @@ class CPU:
             self.reg[reg_a] *= self.reg[reg_b]
         elif op == DIV:
             self.reg[reg_a] /= self.reg[reg_b]
+        elif op == CMP:
+            if self.reg[reg_a] == self.reg[reg_b]:
+                # set the E flag to 1
+                self.FL = self.FL | 0b00000001
+            elif self.reg[reg_a] < self.reg[reg_b]:
+                # set the L flag to 1
+                self.FL = self.FL | 0b00000100
+            elif self.reg[reg_a] > self.reg[reg_b]:
+                # set the G flag to 1
+                self.FL = self.FL | 0b00000010
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -154,7 +167,7 @@ class CPU:
                 print(self.reg[operand])  # 8
 
             # if instruction is MUL or ADD
-            elif IR == MUL or IR == ADD:
+            elif IR == MUL or IR == ADD or IR == CMP:
                 reg_a = self.ram_read(self.pc + 1)
                 reg_b = self.ram_read(self.pc + 2)
                 self.alu(IR, reg_a, reg_b)
@@ -185,7 +198,7 @@ class CPU:
                 # return address is pushed to stack (PC for next instruction)
                 self.ram_write(self.reg[SP], self.pc + 2)
                 # get register location for subroutine
-                reg = self.ram_read(self.pc+1)
+                reg = self.ram_read(self.pc + 1)
                 # set the pc to the value in the given register (where the function is)
                 self.pc = self.reg[reg]
 
