@@ -91,7 +91,7 @@ class CPU:
         self.ram[MAR] = MDR
 
     def alu(self, op, reg_a, reg_b):
-        """ALU operations."""
+        """ALU operations - home of logical operators"""
 
         if op == ADD:
             # adding reg_a and reb_b together and storing result in reg_a
@@ -102,16 +102,17 @@ class CPU:
             self.reg[reg_a] *= self.reg[reg_b]
         elif op == DIV:
             self.reg[reg_a] /= self.reg[reg_b]
-        elif op == CMP:
+        elif op == CMP:  # 00000LGE
+            # CMP - Compare the values in two registers.
             if self.reg[reg_a] == self.reg[reg_b]:
                 # set the E flag to 1
-                self.FL = self.FL | 0b00000001
+                self.FL = 0b00000001
             elif self.reg[reg_a] < self.reg[reg_b]:
                 # set the L flag to 1
-                self.FL = self.FL | 0b00000100
+                self.FL = 0b00000100
             elif self.reg[reg_a] > self.reg[reg_b]:
                 # set the G flag to 1
-                self.FL = self.FL | 0b00000010
+                self.FL = 0b00000010
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -169,8 +170,10 @@ class CPU:
                 # using our operand we print the register value where we originally saved
                 print(self.reg[operand])  # 8
 
-            # if instruction is MUL or ADD
+            # if instruction is handled by the ALU:
+            # Compare the values in two registers.
             elif IR == MUL or IR == ADD or IR == CMP:
+                # CMP - Compare the values in two registers.
                 reg_a = self.ram_read(self.pc + 1)
                 reg_b = self.ram_read(self.pc + 2)
                 self.alu(IR, reg_a, reg_b)
@@ -205,33 +208,36 @@ class CPU:
                 # set the pc to the value in the given register (where the function is)
                 self.pc = self.reg[reg]
 
-            # return back from the subroutine
+            # if returning back from the subroutine
             elif IR == RET:
                 # return address gets popped off the stack and stored in PC
                 self.pc = self.ram_read(self.reg[SP])
                 self.reg[SP] += 1
 
+            # if jumping to address stored in a given register
             elif IR == JMP:
                 register = self.ram_read(self.pc + 1)
                 # Jump to the address stored in the given register.
                 # Set the PC to the address stored in the given register.
                 self.pc = self.reg[register]
 
+            # if equal flag is set (true), jump to the address stored in the given register.
             elif IR == JEQ:
                 # get the 1st operand, the register address
                 register = self.ram_read(self.pc + 1)
-                # if the E flag is true
-                if self.FL & 0b00000001 == 1:
+                # if the E flag is true - 00000LGE
+                if self.FL & 0b00000001 == 1:  # using bitmasking to isolate E flag
                     # jump to the address stored at the given register
                     self.pc = self.reg[register]
                 else:
                     self.pc += operand_count + 1
 
+            # If E flag is clear (false, 0), jump to the address stored in the given register.
             elif IR == JNE:
                 # get the 1st operand, the register address
                 register = self.ram_read(self.pc + 1)
-                # if the E flag is false
-                if self.FL & 0b00000001 == 0:
+                # if the E flag is false - 00000LGE
+                if self.FL & 0b00000001 == 0:  # using bitmasking to isolate E flag
                     # jump to the address stored at the given register
                     self.pc = self.reg[register]
                 else:
