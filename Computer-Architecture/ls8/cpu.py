@@ -17,6 +17,7 @@ RET = 17
 SUB = 161
 DIV = 163
 CMP = 167  # 0b10100111
+JMP = 84   # 0b01010100
 JEQ = 85   # 0b01010101
 JNE = 86   # 0b01010110
 
@@ -210,23 +211,29 @@ class CPU:
                 self.pc = self.ram_read(self.reg[SP])
                 self.reg[SP] += 1
 
+            elif IR == JMP:
+                register = self.ram_read(self.pc + 1)
+                # Jump to the address stored in the given register.
+                # Set the PC to the address stored in the given register.
+                self.pc = self.reg[register]
+
             elif IR == JEQ:
                 # get the 1st operand, the register address
-                reg = self.ram_read(self.pc + 1)
+                register = self.ram_read(self.pc + 1)
                 # if the E flag is true
                 if self.FL & 0b00000001 == 1:
                     # jump to the address stored at the given register
-                    self.pc = self.reg[reg]
+                    self.pc = self.reg[register]
                 else:
                     self.pc += operand_count + 1
 
             elif IR == JNE:
                 # get the 1st operand, the register address
-                reg = self.ram_read(self.pc + 1)
+                register = self.ram_read(self.pc + 1)
                 # if the E flag is false
                 if self.FL & 0b00000001 == 0:
                     # jump to the address stored at the given register
-                    self.pc = self.reg[reg]
+                    self.pc = self.reg[register]
                 else:
                     self.pc += operand_count + 1
 
