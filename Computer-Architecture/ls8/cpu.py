@@ -17,6 +17,8 @@ RET = 17
 SUB = 161
 DIV = 163
 CMP = 167  # 0b10100111
+JEQ = 85   # 0b01010101
+JNE = 86   # 0b01010110
 
 SP = 7  # R7 is reserved as the stack pointer (SP) Fixed
 
@@ -207,6 +209,27 @@ class CPU:
                 # return address gets popped off the stack and stored in PC
                 self.pc = self.ram_read(self.reg[SP])
                 self.reg[SP] += 1
+
+            elif IR == JEQ:
+                # get the 1st operand, the register address
+                reg = self.ram_read(self.pc + 1)
+                # if the E flag is true
+                if self.FL & 0b00000001 == 1:
+                    # jump to the address stored at the given register
+                    self.pc = self.reg[reg]
+                else:
+                    self.pc += operand_count + 1
+
+            elif IR == JNE:
+                # get the 1st operand, the register address
+                reg = self.ram_read(self.pc + 1)
+                # if the E flag is false
+                if self.FL & 0b00000001 == 0:
+                    # jump to the address stored at the given register
+                    self.pc = self.reg[reg]
+                else:
+                    self.pc += operand_count + 1
+
             # if instruction is HLT - Halt the CPU (and exit the emulator)
             elif IR == HLT:  # opcode for HLT - Halts the program and exits
                 # 0 - means a clean exit without any errors / problems
