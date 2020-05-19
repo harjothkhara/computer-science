@@ -148,10 +148,12 @@ class CPU:
             # lets receive some instructions from RAM, and execute them
             # IR =  read the memory address that's stored in register PC (special purpose register), and store that result in IR. initially points to the 0th spot in our RAM
             # get our instructions from where PC is currently pointing
-            IR = self.ram_read(self.pc)
+            IR = self.ram_read(self.pc)  # AABCDDDD
 
             # getting the number of operands (AA) from the program instructions (opcode)
             operand_count = IR >> 6  # bitshift to get number of operands for this instruction
+            # Grab B of the program instruction for if the instruction is an ALU command
+            # is_alu = IR >> 5 & 0b001
             # Grab C of the program instruction for if the instruction sets PC counter
             sets_pc = IR >> 4 & 0b0001
 
@@ -171,7 +173,7 @@ class CPU:
                 print(self.reg[operand])  # 8
 
             # if instruction is handled by the ALU:
-            # Compare the values in two registers.
+            # Multiple, Add or Compare the values in two registers.
             elif IR == MUL or IR == ADD or IR == CMP:
                 # CMP - Compare the values in two registers.
                 reg_a = self.ram_read(self.pc + 1)
