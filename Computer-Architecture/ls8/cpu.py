@@ -152,8 +152,8 @@ class CPU:
 
             # getting the number of operands (AA) from the program instructions (opcode)
             operand_count = IR >> 6  # bitshift to get number of operands for this instruction
-            # Grab B of the program instruction for if the instruction is an ALU command
-            # is_alu = IR >> 5 & 0b001
+            # Grab B of the program instruction for if the instruction has an ALU command
+            is_alu = (IR & 0b00100000) >> 5
             # Grab C of the program instruction for if the instruction sets PC counter
             sets_pc = IR >> 4 & 0b0001
 
@@ -174,7 +174,7 @@ class CPU:
 
             # if instruction is handled by the ALU:
             # Multiple, Add or Compare the values in two registers.
-            elif IR == MUL or IR == ADD or IR == CMP:
+            elif is_alu == 1:
                 # CMP - Compare the values in two registers.
                 reg_a = self.ram_read(self.pc + 1)
                 reg_b = self.ram_read(self.pc + 2)
