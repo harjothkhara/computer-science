@@ -82,19 +82,26 @@ def deleteNode_fromEnd(self, k): # k = position we want to delete
            length +=1
            node = node.next
        node = self.head # reset node back to beginning
+       # check to see if tail node should be delete(k=length-1)
+       if k== 0:
+          for i in range(length-1-k-1):
+                node = node.next
+          node.next = node.next.next
+          node = self.head
+          return node
+       # check for deleteing single LL and check if k == length (also,delete the head)
+       if length == 1 or length == k:
+           node = node.next
+           self.head = node
+           return node
+       # k is greater then length of list
+       if k > length:
+           return node
        # now we know how long LL is, traverse it and go to k-1 from end
        # go to node whose next pointer is k (node we want to delete)
        # position right before the node we're looking for
        for i in range(length-k-1):
            node = node.next
-       # check to see if head node should be delete(k=0)
-       if k== 0:
-           node = node.next
-           self.head = node
-           return node
-       # check to see if k is greater then length of list
-       if k > length:
-           return node
        # set k-1 pointer to point k's next pointer
        # connect that node with the node two places in front of it
        node.next = node.next.next
