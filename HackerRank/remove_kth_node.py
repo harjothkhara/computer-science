@@ -92,6 +92,9 @@ def deleteNode_fromEnd(self, k): # k = position we want to delete
            node = node.next
            self.head = node
            return node
+       # check to see if k is greater then length of list
+       if k > length:
+           return node
        # set k-1 pointer to point k's next pointer
        # connect that node with the node two places in front of it
        node.next = node.next.next
