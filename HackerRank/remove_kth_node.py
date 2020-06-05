@@ -24,7 +24,7 @@ class LinkedList:
         new_node.next = self.head
         self.head = new_node
 
-    def deleteNode(self, k):
+    def deleteNode(self, k): # O(n) - only iterating once through
         first = self.head  # starts at head
         second = self.head # goes to kth node from beginning
         # start by getting the second pointer to kth node (k difference)
@@ -72,3 +72,29 @@ print("\nLinked List after Deletion is:")
 llist.printList()
 
 # resources: https://www.geeksforgeeks.org/delete-nth-node-from-the-end-of-the-given-linked-list/
+
+# Brute Force iterations O(n)**2
+def deleteNode_fromEnd(self, k): # k = position we want to delete
+       node = self.head
+       length = 0
+       # find the length of LL
+       while node:
+           length +=1
+           node = node.next
+       node = self.head # reset node back to beginning
+       # now we know how long LL is, traverse it and go to k-1 from end
+       # go to node whose next pointer is k (node we want to delete)
+       # position right before the node we're looking for
+       for i in range(length-k-1):
+           node = node.next
+       # check to see if head node should be delete(k=0)
+       if k== 0:
+           node = node.next
+           self.head = node
+           return node
+       # set k-1 pointer to point k's next pointer
+       # connect that node with the node two places in front of it
+       node.next = node.next.next
+       # reset the head
+       node = self.head
+       return node

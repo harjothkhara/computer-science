@@ -1,10 +1,11 @@
 # https://www.hackerrank.com/challenges/delete-a-node-from-a-linked-list/problem
-# DELETE NODE AT KTH POSITION (FROM HEAD)
+# DELETE NODE AT KTH POSITION (FROM HEAD, OR BEGINNING OF LL)
 
 
-def deleteNode(self, k):
+def deleteNode(self, k):  # k = position we want to delete
     node = self.head
     # go to node whose next pointer is k (node we want to delete)
+    # position right before the node we're looking for
     for i in range(k-1):
         node = node.next
     # check to see if head node should be deleted(k==0)
@@ -13,6 +14,7 @@ def deleteNode(self, k):
         head = node
         return node
     # set k-1 pointer to point k's next pointer
+    # connect that node with the node two places in front of it
     node.next = node.next.next
     # reset the head
     node = self.head
