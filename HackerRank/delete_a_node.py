@@ -7,6 +7,11 @@ def deleteNode(self, k):
     # go to node whose next pointer is k (node we want to delete)
     for i in range(k-1):
         node = node.next
+    # check to see if head node should be deleted(k==0)
+    if k == 0:
+        node = node.next
+        head = node
+        return node
     # set k-1 pointer to point k's next pointer
     node.next = node.next.next
     # reset the head
