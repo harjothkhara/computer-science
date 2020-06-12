@@ -1,3 +1,4 @@
+from collections import Counter
 # Harold is a kidnapper who wrote a ransom note, but now he is worried it will be traced back to him through his handwriting. He found a magazine and wants to know if he can cut out whole words from it and use them to create an untraceable replica of his ransom note. The words in his note are case-sensitive and he must use only whole words available in the magazine. He cannot use substrings or concatenation to create the words he needs.
 
 # Given the words in the magazine and the words in the ransom note, print Yes if he can replicate his ransom note exactly using whole words from the magazine; otherwise, print No.
@@ -23,6 +24,21 @@ def checkMagazine(magazine, note):
     # once the check between the magazine words and note is complete
     # check whether the words we found from the magazine are equal to words in notes
     if len(word_n) == len(match):
+        print("Yes")
+    else:
+        print("No")
+
+# optimized version using Counter from Python collection libaray - passes all tests!
+ #Complete the checkMagazine function below.
+def checkMagazine(magazine, note):
+    # using Counter(keep track of hashtable objects. elements are stored as dict keys and their counts are stored as dict values) to keep track of word occcurances in magazine and ransom note. keep track of the numnber of times the same string has been hashed, storing the string as the key and the count as the value.
+    mag = Counter(magazine) 
+    # e.g Counter({'give': 1, 'me': 1, 'one': 1, 'grand': 1, 'today': 1, 'night': 1})
+    note = Counter(note) 
+    # Counter({'give': 1, 'one': 1, 'grand': 1, 'today': 1})
+    
+    # 
+    if note - mag == {}:
         print("Yes")
     else:
         print("No")
