@@ -33,7 +33,23 @@ for (let i=0; i<ar.length; i++){
  }
  return count
 }
-  
+
+// optimized solution: time complexity O(nlogn) space complexity O(1)
+function sockMerchants(n,ar){
+  ar.sort() // 10, 10, 10, 10, 20, 20, 20, 30, 50
+  let count = 0
+  for(let i =0; i<n-1; i++){
+    // console.log(i)
+    if(ar[i] == ar[i+1]){
+      count+=1
+    // will increment again once back at top of loop, thus not counting duplicate pair (skipping duplicate entry)
+      i = i+1
+    }
+  }
+  return count
+} 
+
+// could also us a hashset to store color pairs
 
 sockMerchant(9, [10,20,20,10,10,30,50,10,20])
 // var arrayName = Array(20).fill(42)
