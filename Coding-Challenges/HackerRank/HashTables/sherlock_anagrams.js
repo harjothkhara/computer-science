@@ -67,6 +67,7 @@ function areAnagrams(s1,s2){
          return false // not an anagram
          }
      }
+     return true // if all the letters match - anagram!
     }
     
   let s1 = 'abba'
