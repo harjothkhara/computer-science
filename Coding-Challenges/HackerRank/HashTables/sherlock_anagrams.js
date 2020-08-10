@@ -103,3 +103,37 @@ function areAnagrams(s1,s2){ // O(n) where n is the same length
   // let s2 = 'abcd'
   
   // areAnagrams(s1,s2)
+
+  // alternative: using JS object to keep track of letter occurrences
+
+  // O(n)
+// given two strings, determine if they are anagrams
+// function areAnagrams(s1, s2) {
+//   // first check if they're differnt length
+//     // not anagrams
+//   if (s1.length !== s2.length) return false;
+  
+//   // O(n)
+//   // map of letter to count of letters
+//   let map = {};
+//   for (let letter of s1) {
+//     if (map.hasOwnProperty(letter)) {
+//       map[letter]++
+//     } else {
+//       map[letter] = 1;
+//     }
+//   }
+  
+//   for (let letter of s2) {
+//     if (map[letter]) {
+//       map[letter]--
+//     } else {
+//       return false;
+//     }
+//   }
+//   // O(n)
+//   // loop through s2 and see if it's contained in it and > 0
+//     // decrement the count of s1 map
+//   return true;
+//   // if we get to the end and we haven't had a "miss", then return true
+// }
