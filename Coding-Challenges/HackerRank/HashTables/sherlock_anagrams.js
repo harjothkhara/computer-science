@@ -44,8 +44,34 @@ function areAnagrams(s1,s2){
   // compare the strings to see if they're equal
   // O(1)
 }
+
+function sherlockAndAnagrams(s) { // O(n)**2 where n 
+  // slice up individual string to see if there
+  // are any anagram pairs within it. we will use
+  // our areAngrams helper function to check if
+  // each substring pair is or is not an anagram
+    let subs = []; // adding substring pairs
+    for (let i = 0; i < s.length; i++) {  // O(n)**2 where n is the same length
+        for (let j = i + 1; j < s.length + 1; j++) {
+            subs.push(s.slice(i, j))
+        }
+    }
+
+    let count = 0;
+    for (let i = 0; i < subs.length; i++) { // O(n)**2 where n is the same length
+        for (let j = i + 1; j < subs.length; j++) {
+            if (areAnagrams(subs[i], subs[j])){
+               count++;
+               console.log(subs[i],subs[j])
+              } 
+        }
+    }
+
+    return count;
+} // Big O = 2(n)**2 = O(n)**2
+
 // helper method - hashmap strategy
-function areAnagrams(s1,s2){
+function areAnagrams(s1,s2){ // O(n) where n is the same length
   // 1. length of two strings needs to be the same
    if(s1.length !== s2.length) return false
   // 2. same letters (given length is now the same)
@@ -63,7 +89,7 @@ function areAnagrams(s1,s2){
    // s2 needs to have same letters as s1
    // O(n) - s1 and s2 are same length
    for(let letter of s2){
-     if(map.has(letter)){ // decrement if in hashmap
+     if(map.has(letter) && map.get(letter) > 0){ // decrement if in hashmap
        map.set(letter, map.get(letter) - 1)
        } else { // s2 letter not in s1 hashmap
          return false // not an anagram
@@ -72,7 +98,8 @@ function areAnagrams(s1,s2){
      return true // if all the letters match - anagram!
     }
     // Big O - O(n) + O(n) = 2(n) = O(n)
-  let s1 = 'abba'
-  let s2 = 'abcd'
+      // not O(n+m) b/c both are the same length
+  // let s1 = 'abba'
+  // let s2 = 'abcd'
   
-  areAnagrams(s1,s2)
+  // areAnagrams(s1,s2)
