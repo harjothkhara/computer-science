@@ -50,6 +50,7 @@ function areAnagrams(s1,s2){
    if(s1.length !== s2.length) return false
   // 2. same letters (given length is now the same)
    // map of letter to count of letters
+   // O(n) - s1 and s2 are same length
    let map = new Map()
    for(let letter of s1){
      if(map.has(letter)){ // letter already in map
@@ -60,6 +61,7 @@ function areAnagrams(s1,s2){
      }
    // checking s2 letter against s1 map`
    // s2 needs to have same letters as s1
+   // O(n) - s1 and s2 are same length
    for(let letter of s2){
      if(map.has(letter)){ // decrement if in hashmap
        map.set(letter, map.get(letter) - 1)
@@ -69,7 +71,7 @@ function areAnagrams(s1,s2){
      }
      return true // if all the letters match - anagram!
     }
-    
+    // Big O - O(n) + O(n) = 2(n) = O(n)
   let s1 = 'abba'
   let s2 = 'abcd'
   
