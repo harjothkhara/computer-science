@@ -32,3 +32,29 @@ var isPalindrome = function (head) {
 };
 // [10,10] -> true
 // "1010" -> reverse -> "0101" -> false
+
+// technical coaching solution
+var isPalindrome = function (head) {
+  let currentNode = head;
+  let llArr = [];
+  while (currentNode !== null) {
+    llArr.push(currentNode.val);
+    currentNode = currentNode.next;
+  }
+  // start at the beginning and end and move them together checking the val at each index
+  let i = 0;
+  let j = llArr.length - 1;
+
+  while (i < j) {
+    if (llArr[i] !== llArr[j]) {
+      return false;
+    }
+    i++;
+    j--;
+  }
+
+  return true;
+};
+
+// how can we do this in constant space O(1)? without an arr or object, do it in-place (two pointer method)
+// https://leetcode.com/problems/palindrome-linked-list/discuss/789935/Two-pointer-solution-wvideo-whiteboard-explanation
