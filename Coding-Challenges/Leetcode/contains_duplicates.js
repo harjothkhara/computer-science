@@ -13,13 +13,13 @@ var containsDuplicate = function(nums) {
   // time complexity O(n)
   // use a set data structure to filter out duplicates
   // initialize a set
-  const s = new Set()
+  const s = new Set() // also works -> const s = new Set(nums)
   // add arr nums into set
   for(let num of nums){ // O(n)
       s.add(num)
   }
   // if the original length of the arr is different from the size of the set then we have duplicates, return true
-  if(nums.length !== s.size){ // O(1)
+  if(nums.length !== s.size){ // O(1)  -> 1 liner solution for this: nums.length !== s.size
       return true
   } else {         // else return false
       return false
@@ -87,12 +87,11 @@ var containsDuplicate = function(nums) {
    var containsDuplicate = function(nums){
     // sort the array
     const sortNums = nums.sort()
-    for(let i=0; i<sortNums.length-1; i++){
-      for(let j=i+1; j<sortNums.length;j++){
-        if(sortNums[i] === sortNums[j]){
+    for(let i=0; i<sortNums.length-1; i++){ // preventing an outbounds error
+        if(sortNums[i] === sortNums[i+1]){
           return true
           }
-        }
+        
      }
      return false
   }
