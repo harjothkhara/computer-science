@@ -19,3 +19,22 @@ var runningSum = function(nums) {
   
   return newArr
 };
+
+// technical coaching solution:
+var runningSum = function(nums) {
+  // create a var that keeps track of the sum at each iteration
+  let sum = nums[0]
+  // create an array for our running sum
+  let sumsArr = [nums[0]] // first num added to sumsArr
+  // iterate over nums
+    // add each new number to our sum
+    // add the new sum into the array
+  for(let i=1; i<nums.length; i++){
+    sum += nums[i]
+    sumsArr.push(sum)
+  }
+  
+  // return running sums array
+  return sumsArr
+};
+
