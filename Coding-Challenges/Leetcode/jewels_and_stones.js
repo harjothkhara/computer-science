@@ -32,3 +32,14 @@ var numJewelsInStones = function(J, S) {
 };
 // space - O(n) creating a new data structure 
 // time - O(n) one for loop, and access to letters in set is 0(1)
+
+var numJewelsInStones = function(J, S) {
+  let count = 0
+  for(let i=0; i<S.length; i++){ // loop through our stones
+    // does index inside J exist with the given S letter at each iteration
+    if(J.indexOf(S.charAt(i)) > -1){ 
+      count += 1
+    }
+  }
+  return count
+};
