@@ -28,3 +28,9 @@ var defangIPaddr = function (address) {
 
 // time - O(n)
 // space - O(n)
+
+// another:
+var defangIPaddr = function (address) {
+ // separate address by '.' as delimiter (sequence of characters separator)
+ return address.split('.').join('[.]')
+};

@@ -43,3 +43,21 @@ var numJewelsInStones = function(J, S) {
   }
   return count
 };
+
+// another:
+var numJewelsInStones = function(J, S) {
+  const types = {}
+
+  for(let letter of J){
+    types[letter] = 0 // add letter(key) of jewel to types object with value as 0
+  }
+  for(let letter of S){ // check if stone letter is in types object, if so increment value
+    if(types.hasOwnProperty(letter)){
+      types[letter]++
+    }
+  }
+  // add up jewels(values) in types object
+  return Object.values(types).reduce((acc,val) => {
+    return acc + val
+  })
+};
