@@ -53,3 +53,30 @@ var lengthOfLongestSubstring = function(s) {
 // time - O(n**2)
 // space - O(n)
 
+// optimized solution using a sliding window approach(expanding/shrinking` our window with our 2 pointers) with a hashset
+var lengthOfLongestSubstring = function(s) {
+    // "abcabcbb"
+    let pointerA = 0 // slow pointer (used to pop duplicate)
+    let pointerB = 0 // fast pointer will expand the window making sure none of the characters are the same
+    let max = 0 // will keep track of when the window is the biggest
+
+    let hashSet = new Set() // add new letters, no duplicates
+
+    while(pointerB < s.length){
+      // is the current letter in our longest substring set?
+      if(!hashSet.has(s[pointerB])){
+        // if not in hashset, then add it
+        hashSet.add(pointerB[pointerA])
+        // increment pointer
+        pointerB++
+        // compare size of hashset at current iteration with our max
+        max = Math.max(hashSet.size, max) 
+      } else {
+        // if letter is already in the hashset then pop the last letter from the beginning of hashset (not continguous, so start a new continguous block)
+        hashSet.delete(s[pointerB])
+        // increment slow pointer
+        pointerA++
+      }
+    } 
+  return max
+};
