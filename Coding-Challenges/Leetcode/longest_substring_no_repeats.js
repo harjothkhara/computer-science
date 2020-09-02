@@ -80,3 +80,6 @@ var lengthOfLongestSubstring = function(s) {
     } 
   return max
 };
+
+// time - O(m * n) or O(hashSet * s) 
+// space - O(n) depends on how many letters inside the hashSet
