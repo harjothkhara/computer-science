@@ -81,5 +81,5 @@ var lengthOfLongestSubstring = function(s) {
   return max
 };
 
-// time - O(m * n) or O(hashSet * s) 
+// time - O(n) where n is the length of s. since accessing, adding/deleting from a hashtable is 0(1) it won't contribute to time complexity
 // space - O(n) depends on how many letters inside the hashSet
