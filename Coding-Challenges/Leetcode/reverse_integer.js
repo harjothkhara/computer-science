@@ -25,4 +25,18 @@ var reverse = function(x) {
     // if our x digit was positive to begin with do nothing, else add a negative to the return value
   return x > 0 ? reversed : -reversed
     
-}; 
+}; // time - O(n); space - O(n)
+
+// another solution
+var reverse = function(x){ 
+  y = Math.abs(x)
+  // reversing digit
+  rev = (y+"").split('').reverse().join('') * Math.sign(x)
+  
+  // 32 bit int boundary
+  max = Math.pow(2,31)
+  if(rev > max || rev < -max) return 0
+
+  return rev
+}
+ // time - O(n); space - O(n)
