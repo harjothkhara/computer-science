@@ -92,4 +92,4 @@
     
 };
 // O(n) time complexity b/c we move through the string one char at a time push and popping operations on a stack O(1) time.
-// O(n) as we push all opening brackets onto the stack, worst case we push all brackets on the stack e.g (((((((
+// O(n) space as we push all opening brackets onto the stack, worst case we push all brackets on the stack e.g (((((((
