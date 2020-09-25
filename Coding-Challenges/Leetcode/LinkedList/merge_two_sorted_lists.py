@@ -39,11 +39,17 @@ class Solution:
         
         # edge case: what if the node value in either l1 or l2 is not none?
             # add to the end of out sorted LL since we don't have another LL to compare it to
-        if(l1 is not None):
-            current.next = l1
+        if(l1 is not None): 
+            # include all remaining nodes from l2's current position to end 
+       # [1,1,2,3,4,4 ->   # 6->7->8->9
+            current.next = l1  
             l1 = l1.next
         elif(l2 is not None):
             current.next = l2
             l2 = l2.next
             
         return temp.next
+
+# big O is O(n) where n is the length of l1 - once we reach the end of l1, we exit loop and insert the remaining nodes in l2 at the end of the sorted list. so we're not iterating through the end of both LL's, just one.
+
+# space is O(n) b/c we're creating a new sorted LL
