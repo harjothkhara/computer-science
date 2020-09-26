@@ -44,3 +44,6 @@ var removeDuplicates = function(nums) {
     //          |           |        
     // [0,1,2,3,4,2,2,3,3,4]
     // return i + 1 -> total number of elements in array (remember array is 0 based that's why we add 1)
+
+    // time complexity is O(n) where n is the length of the array. each i and j traverse at most n steps.
+    // space complexity is 0(1) - in place, no extra space is created.
