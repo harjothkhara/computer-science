@@ -24,3 +24,24 @@ var removeElement = function(nums, val) {
   }
   return nums.length
 };
+// time O(n) where n is the length of nums, 
+// space O(1) - in-place, no extra space created.
+
+// two pointer
+// time O(n) where n is the length of nums, 
+// space O(1) - in-place, no extra space created.
+var removeElement = function(nums, val) {
+  // 2 pointers
+  let i = 0 // i captures the length of the array without the included val
+  for(let j = 0; j<nums.length; j++){
+      // if element at j is not equal to val we add it to i
+      if(nums[j] !== val){
+          nums[i] = nums[j]
+          i++
+      }
+   // when nums[j] is equal to the given value, skip this element
+  }
+  return i  // i captures the length of the array without the included val
+};
+  // ||    
+  // [0,1,3,0,4,0,4,2]  val = 2
