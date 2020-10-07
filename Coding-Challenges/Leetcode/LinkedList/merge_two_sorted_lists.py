@@ -50,6 +50,6 @@ class Solution:
             
         return temp.next
 
-# big O is O(n) where n is the length of l1 - once we reach the end of l1, we exit loop and insert the remaining nodes in l2 at the end of the sorted list. so we're not iterating through the end of both LL's, just one.
+# big O is O(n) where n is the length of the smaller of length of l1 or length of l2, in this case, in this example l1 - once we reach the end of l1, we exit loop and insert the remaining nodes in l2 at the end of the sorted list. so we're not iterating through the end of both LL's, just one.
 
 # space is O(n) b/c we're creating a new sorted LL
