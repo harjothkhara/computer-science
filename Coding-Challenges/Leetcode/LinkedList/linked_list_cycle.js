@@ -24,7 +24,8 @@ var hasCycle = function(head) {
          // upon arriving at a new node, we check to see if the node has been visited
          // if it has, then we have a cycle so we return true
          // else we add node to our visited set and keep traversing
-         
+
+    // 1. using a hashtable     
     let visited =  new Set() // (uniqiue) node: val, next 
     let curr = head
     while(curr !== null){
@@ -38,3 +39,34 @@ var hasCycle = function(head) {
 };
 // fyi: duplicate nodes are ok, just make sure we don't revisit the same node 
         // internally: (pos => index of node)
+
+  // 2. using a two pointer approach
+  var hasCycle = function(head) {
+    // 2 pointers approach - fast runner and a slow runner
+        // fast runner will move 2 nodes at a time where as the slow runner will move 1 node at a time. if its a cycle, eventually the fast runner will catch the slow runner and both will be equal (cycle)
+    
+    // head 
+    //  s    f 
+    //  |    |              
+    //  3 -> 2 -> 0 -> -4
+    //       ^          ↓
+    //       |          |
+    //       - -  -  -  |
+    
+    // edge case: an empty LL []
+    if(head === null) return false
+    
+    let slow = head
+    let fast = head.next
+    
+    // if slow === fast (both at the same node, we have a loop!)
+    while(slow !== fast){
+        // [1]              [1,2]
+        if(fast === null || fast.next === null) return false
+                                          // |  |
+        // else move both pointer along [1,2,3]
+        slow = slow.next // move over by 1
+        fast = fast.next.next  // move over by 2
+    }
+    return true // we have a cycle!
+};
